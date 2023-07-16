@@ -1,7 +1,7 @@
 {
   "name": "port_agent",
   "version": "0.1.1",
-  "description": "A RPC-like facility for making inter-thread function calls.  ",
+  "description": "A RPC-like facility for making inter-thread function calls.",
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf ./dist/*",
@@ -26,5 +26,6 @@
     "eslint": "^8.44.0",
     "nodemon": "^2.0.22",
     "typescript": "^5.1.6"
-  }
+  },
+  "type": "module"
 }

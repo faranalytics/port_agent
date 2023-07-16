@@ -1,14 +1,3 @@
-# Port Agent
-
-A RPC-like facility for making inter-thread function calls.
-
-Port Agent will marshall return values and Errors (stack traces) back to the caller.  Registered functions (i.e., Agent.register) are persistent.  Late binding registrants will be called with previously awaited invocations. 
-
-## Example
-
-This example should log the string "Hello another world!" to the console.
-
-```js
 import { Worker, isMainThread, parentPort, workerData } from 'node:worker_threads';
 import { fileURLToPath } from 'node:url';
 import { Agent } from 'port_agent';
@@ -27,4 +16,3 @@ if (isMainThread) {
         await agent.register('hello_world', (value) => `Hello ${value} world!`);
     })();
 } 
-```

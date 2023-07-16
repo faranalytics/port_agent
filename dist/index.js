@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Agent = void 0;
-const node_crypto_1 = require("node:crypto");
+import { randomUUID } from 'node:crypto';
 class Call {
     id;
     name;
@@ -38,7 +35,7 @@ class ResultMessage {
         this.error = error;
     }
 }
-class Agent {
+export class Agent {
     port;
     calls;
     messages;
@@ -94,7 +91,7 @@ class Agent {
     }
     async call(name, ...args) {
         return new Promise((r, j) => {
-            const id = (0, node_crypto_1.randomUUID)();
+            const id = randomUUID();
             this.calls.add(new Call({ id, name, r, j }));
             this.port.once('messageerror', j);
             this.port.postMessage(new CallMessage({ id, name, args }));
@@ -110,4 +107,3 @@ class Agent {
         }
     }
 }
-exports.Agent = Agent;
