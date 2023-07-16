@@ -1,0 +1,30 @@
+{
+  "name": "port_agent",
+  "version": "0.1.0",
+  "description": "A RPC-like facility for making inter-thread function calls.  ",
+  "main": "./dist/index.js",
+  "scripts": {
+    "clean": "rm -rf ./dist/*",
+    "build": "npm run build:dist",
+    "build:dist": "tsc --build .",
+    "clean:build": "npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faranalytics/port_agent.git"
+  },
+  "author": "FAR",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/faranalytics/port_agent/issues"
+  },
+  "homepage": "https://github.com/faranalytics/port_agent#readme",
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.44.0",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.1.6"
+  }
+}
