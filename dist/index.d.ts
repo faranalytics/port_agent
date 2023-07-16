@@ -1,4 +1,4 @@
-/// <reference types="node" resolution-mode="require"/>
+/// <reference types="node" />
 import * as threads from 'node:worker_threads';
 export declare class Agent {
     protected port: threads.MessagePort | threads.Worker;
