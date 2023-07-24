@@ -42,15 +42,15 @@ class Agent {
     port;
     calls;
     messages;
-    func;
+    registrar;
     constructor(port) {
         this.port = port;
         this.calls = new Set();
         this.messages = new Set();
-        this.func = new Map();
+        this.registrar = new Map();
         this.port.on('message', (message) => {
             if (message.type == 'CallMessage') {
-                const fn = this.func.get(message.name);
+                const fn = this.registrar.get(message.name);
                 if (fn) {
                     this.tryPost(fn, message);
                 }
@@ -102,12 +102,15 @@ class Agent {
         });
     }
     async register(name, fn) {
-        this.func.set(name, fn);
+        this.registrar.set(name, fn);
         for (const message of this.messages) {
             if (message.name === name) {
                 this.tryPost(fn, message);
             }
         }
+    }
+    deregister(name) {
+        this.registrar.delete(name);
     }
 }
 exports.Agent = Agent;

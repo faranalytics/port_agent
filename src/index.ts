@@ -66,17 +66,17 @@ export class Agent {
     protected port: threads.MessagePort | threads.Worker;
     private calls: Set<Call>;
     private messages: Set<CallMessage>;
-    private func: Map<string, (...args: any) => any>;
+    private registrar: Map<string, (...args: any) => any>;
     constructor(port: threads.MessagePort | threads.Worker) {
 
         this.port = port;
         this.calls = new Set<Call>();
         this.messages = new Set<CallMessage>();
-        this.func = new Map<string, (...args: any) => any>();
+        this.registrar = new Map<string, (...args: any) => any>();
 
         this.port.on('message', (message: CallMessage & ResultMessage) => {
             if (message.type == 'CallMessage') {
-                const fn = this.func.get(message.name);
+                const fn = this.registrar.get(message.name);
                 if (fn) {
                     this.tryPost(fn, message);
                 }
@@ -131,11 +131,15 @@ export class Agent {
     }
 
     public async register(name: string, fn: (...args: any) => any): Promise<any> {
-        this.func.set(name, fn);
+        this.registrar.set(name, fn);
         for (const message of this.messages) {
             if (message.name === name) {
                 this.tryPost(fn, message);
             }
         }
+    }
+
+    public deregister(name: string) {
+        this.registrar.delete(name);
     }
 }
