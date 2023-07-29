@@ -48,11 +48,11 @@ class Agent {
         this.calls = new Set();
         this.messages = new Set();
         this.registrar = new Map();
-        this.port.on('message', (message) => {
+        this.port.on('message', async (message) => {
             if (message.type == 'CallMessage') {
                 const fn = this.registrar.get(message.name);
                 if (fn) {
-                    this.tryPost(fn, message);
+                    await this.tryPost(fn, message);
                 }
                 else {
                     this.messages.add(message);
@@ -105,7 +105,7 @@ class Agent {
         this.registrar.set(name, fn);
         for (const message of this.messages) {
             if (message.name === name) {
-                this.tryPost(fn, message);
+                await this.tryPost(fn, message);
             }
         }
     }

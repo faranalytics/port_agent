@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as threads from 'node:worker_threads';
 import { randomUUID } from 'node:crypto';
 
@@ -74,11 +78,11 @@ export class Agent {
         this.messages = new Set<CallMessage>();
         this.registrar = new Map<string, (...args: any) => any>();
 
-        this.port.on('message', (message: CallMessage & ResultMessage) => {
+        this.port.on('message', async (message: CallMessage & ResultMessage) => {
             if (message.type == 'CallMessage') {
                 const fn = this.registrar.get(message.name);
                 if (fn) {
-                    this.tryPost(fn, message);
+                    await this.tryPost(fn, message);
                 }
                 else {
                     this.messages.add(message);
@@ -134,7 +138,7 @@ export class Agent {
         this.registrar.set(name, fn);
         for (const message of this.messages) {
             if (message.name === name) {
-                this.tryPost(fn, message);
+                await this.tryPost(fn, message);
             }
         }
     }
