@@ -5,7 +5,7 @@ A RPC-like facility for making inter-thread function calls.
 Port Agent will marshall return values and Errors (stack traces) back to the caller.  Registered functions (i.e., Agent.register) are persistent.  Late binding registrants will be called with previously awaited invocations. 
 
 ## Example
-`.index.js`
+`index.js`
 ```js
 import { Worker, isMainThread, parentPort } from 'node:worker_threads';
 import { fileURLToPath } from 'node:url';
