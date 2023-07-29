@@ -52,7 +52,12 @@ class Agent {
             if (message.type == 'CallMessage') {
                 const fn = this.registrar.get(message.name);
                 if (fn) {
-                    await this.tryPost(fn, message);
+                    try {
+                        await this.tryPost(fn, message);
+                    }
+                    catch (err) {
+                        console.error(err);
+                    }
                 }
                 else {
                     this.messages.add(message);
