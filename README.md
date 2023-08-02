@@ -75,8 +75,8 @@ export class WorkerAgent extends Agent {
     public online: boolean;
     public exited: boolean;
     public proxyServerConnectOptions?: net.SocketConnectOpts;
-    protected ready: Promise<boolean>;
-    protected workerOnlineTimeout: number;
+    public ready: Promise<boolean>;
+    public workerOnlineTimeout: number;
 
     constructor({
         worker,
