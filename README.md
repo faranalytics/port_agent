@@ -65,6 +65,12 @@ Error: To err is Human.
     at exports.emitMessage (node:internal/per_context/messageport:23:28)
 ```
 
+#### Run Test
+You can run the test using:
+```bash
+npm run test
+```
+
 ### Subclassing Agent
 The Agent constructor can effectively be used as shown in the [Simple Example](#a-simple-example) or it can be subclassed in order to act as a "wrapper" around Worker threads.  In this example the `Agent` class is subclassed by `WorkerAgent` in order to provide the state (i.e., `online`, `ready`, and `exited`) of a Worker Thread, which may be useful in some contexts.
 
