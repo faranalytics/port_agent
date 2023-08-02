@@ -23,11 +23,15 @@ if (isMainThread) {
         console.log(greeting);
     })();
 } else {
+    function callAFunction() {
+        function nowThrowAnError() {
+            throw new Error('To err is Human.');
+        }
+        nowThrowAnError();
+    }
     (async () => {
         const agent = new Agent(parentPort);
         await agent.register('hello_world', (value) => `Hello ${value} world!`);
-        await agent.register('error', (value) => {
-            throw new Error('To err is Human.');
-        });
+        await agent.register('error', callAFunction);
     })();
 } 

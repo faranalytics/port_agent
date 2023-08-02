@@ -16,7 +16,7 @@ module.exports = {
     },
     "rules": {
         "semi": ["error", "always"],
-        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-floating-promises": ["error"],
         "@typescript-eslint/no-misused-promises": ["error"]
     },
     "ignorePatterns": [
