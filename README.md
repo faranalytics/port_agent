@@ -43,11 +43,9 @@ if (isMainThread) { // This is the Main Thread.
     function callAFunction() {
         nowThrowAnError();
     }
-    (async () => {
-        const agent = new Agent(parentPort);
-        await agent.register('hello_world', (value) => `Hello ${value} world!`);
-        await agent.register('error', callAFunction);
-    })();
+    const agent = new Agent(parentPort);
+    agent.register('hello_world', (value) => `Hello ${value} world!`);
+    agent.register('error', callAFunction);
 } 
 ```
 

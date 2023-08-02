@@ -140,19 +140,12 @@ export class Agent {
     }
 
     public register(name: string, fn: (...args: any) => any): void {
-        void (async () => {
-            try {
-                this.registrar.set(name, fn);
-                for (const message of this.messages) {
-                    if (message.name === name) {
-                        await this.tryPost(fn, message);
-                    }
-                }
+        this.registrar.set(name, fn);
+        for (const message of this.messages) {
+            if (message.name === name) {
+                void this.tryPost(fn, message);
             }
-            catch (err) {
-                console.error(err);
-            }
-        })();
+        }
     }
 
     public deregister(name: string) {
