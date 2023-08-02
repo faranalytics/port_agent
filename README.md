@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { Agent } from 'port_agent';
 
 if (isMainThread) {
+    // This is the Main Thread.
     (async () => {
         const worker = new Worker(fileURLToPath(import.meta.url));
         const agent = new Agent(worker);
@@ -34,12 +35,18 @@ if (isMainThread) {
         console.log(greeting);
     })();
 } else {
+    // This is a Worker Thread.
+
+    function nowThrowAnError() {
+        throw new Error('To err is Human.');
+    }
+    function callAFunction() {
+        nowThrowAnError();
+    }
     (async () => {
         const agent = new Agent(parentPort);
         await agent.register('hello_world', (value) => `Hello ${value} world!`);
-        await agent.register('error', (value) => {
-            throw new Error('To err is Human.');
-        });
+        await agent.register('error', callAFunction);
     })();
 } 
 ```
@@ -50,9 +57,10 @@ This example should log to the console:
 Hello another world!
 Hello again, another world!
 Error: To err is Human.
-    at file:///index.js:30:19
+    at nowThrowAnError (file:///index.js:30:15)
+    at callAFunction (file:///home/adpatter/repositories/faranalytics/port_agent/test/index.js:33:9)
     at Agent.tryPost (/index.js:82:33)
-    at MessagePort.<anonymous> (/index.js:56:36)
+    at MessagePort.<anonymous> (index.js:56:36)
     at [nodejs.internal.kHybridDispatch] (node:internal/event_target:762:20)
     at exports.emitMessage (node:internal/per_context/messageport:23:28)
 ```
