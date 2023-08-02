@@ -2,7 +2,10 @@
 
 A RPC-like facility for making inter-thread function calls.
 
-Port Agent will marshall return values and Errors (stack traces) back to the caller.  Registered functions (i.e., Agent.register) are persistent.  Late binding registrants will be called with previously awaited invocations. 
+## Features
+- Port Agent will marshall return values and Errors (stack traces) back to the caller.  
+- Registered functions (i.e., Agent.register) are persistent.  
+- Late binding registrants will be called with previously awaited invocations. 
 
 ## Examples
 
