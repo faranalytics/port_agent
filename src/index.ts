@@ -67,7 +67,7 @@ class ResultMessage {
 
 export class Agent {
 
-    protected port: threads.MessagePort | threads.Worker;
+    public port: threads.MessagePort | threads.Worker;
     private calls: Set<Call>;
     private messages: Set<CallMessage>;
     private registrar: Map<string, (...args: any) => any>;
