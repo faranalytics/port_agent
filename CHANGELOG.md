@@ -5,9 +5,10 @@
 ### Added
 
 - This project adheres to Semantic Versioning.
-- Improve examples.
 
 ### Changed
+
+- Improve examples.
 
 ### Deprecated
 
