@@ -58,7 +58,7 @@ Error: To err is Human.
 ```
 
 ### Subclassing Agent
-The Agent constructor can effectively be used as shown in the [Simple Example](#a-simple-example) or it can be subclassed in order to act as a "wrapper" around Worker threads.  In this example the `Agent` class is subclassed by `WorkerAgent` in order to provide the state (i.e., `online` and `ready`) of a Worker Thread, which may be useful in some contexts.
+The Agent constructor can effectively be used as shown in the [Simple Example](#a-simple-example) or it can be subclassed in order to act as a "wrapper" around Worker threads.  In this example the `Agent` class is subclassed by `WorkerAgent` in order to provide the state (i.e., `online`, `ready`, and `exited`) of a Worker Thread, which may be useful in some contexts.
 
 ```ts
 import * as threads from 'node:worker_threads';
