@@ -6,8 +6,9 @@
   "scripts": {
     "clean": "rm -rf ./dist/*",
     "build": "tsc --build .",
+    "build:test": "tsc --build test",
     "clean:build": "npm run clean && npm run build",
-    "test": "npm run clean:build && node test"
+    "test": "npm run clean:build && npm run build:test && node test"
   },
   "repository": {
     "type": "git",

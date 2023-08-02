@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.1.1] - 2023-08-02
+
+### Added
+
+### Changed
+
+- Add type variable to call method.
+- Change test to TypeScript.
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+
 ## [1.1.0] - 2023-08-02
 
 ### Added
@@ -15,6 +33,7 @@
 - Registration was errantly made async; this has been fixed in this version.  The previous minor version has been deprecated. 
 
 ### Security
+
 
 ## [1.0.0] - 2023-08-02
 
