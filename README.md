@@ -10,8 +10,8 @@ A RPC-like facility for making inter-thread function calls.
 ## Examples
 
 ### A Simple Example
-`index.js`
-```js
+`index.ts`
+```ts
 import { Worker, isMainThread, parentPort } from 'node:worker_threads';
 import { fileURLToPath } from 'node:url';
 import { Agent } from 'port_agent';
@@ -43,9 +43,11 @@ if (isMainThread) { // This is the Main Thread.
     function callAFunction() {
         nowThrowAnError();
     }
-    const agent = new Agent(parentPort);
-    agent.register('hello_world', (value) => `Hello ${value} world!`);
-    agent.register('error', callAFunction);
+    if (parentPort) {
+        const agent = new Agent(parentPort);
+        agent.register('hello_world', (value) => `Hello ${value} world!`);
+        agent.register('error', callAFunction);
+    }
 } 
 ```
 

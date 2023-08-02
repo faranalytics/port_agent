@@ -129,7 +129,7 @@ export class Agent {
         }
     }
 
-    public async call(name: string, ...args: any): Promise<any> {
+    public async call<T>(name: string, ...args: any): Promise<T> {
         return new Promise((r, j) => {
             const id = randomUUID();
             this.calls.add(new Call({ id, name, r, j }));
