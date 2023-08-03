@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.3] - 2023-08-03
+
+### Fixed
+
+- Fix error in simple example output.
+
+# Changelog
+
 ## [1.1.2] - 2023-08-03
 
 ### Changed

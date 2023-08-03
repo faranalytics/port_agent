@@ -56,7 +56,7 @@ This example should log to the console:
 ```bash
 Hello another world!
 Hello again, another world!
-Error: To err is Human.
+Now, back in the Main Thread, we will handle the Error: To err is Human.
     at nowThrowAnError (file:///index.js:30:15)
     at callAFunction (file:///home/adpatter/repositories/faranalytics/port_agent/test/index.js:33:9)
     at Agent.tryPost (/index.js:82:33)
