@@ -1,38 +1,29 @@
 # Changelog
 
-## [1.1.1] - 2023-08-02
+## [1.1.2] - 2023-08-03
 
-### Added
+### Changed
+
+- Improve simple example.
+
+### Removed
+- Remove subclassing example from the README.md.
+
+# Changelog
+
+## [1.1.1] - 2023-08-02
 
 ### Changed
 
 - Add type variable to call method.
 - Change test to TypeScript.
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
 
 ## [1.1.0] - 2023-08-02
-
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 
 - Registration was errantly made async; this has been fixed in this version.  The previous minor version has been deprecated. 
-
-### Security
 
 
 ## [1.0.0] - 2023-08-02

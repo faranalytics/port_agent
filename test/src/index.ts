@@ -10,10 +10,10 @@ if (isMainThread) { // This is the Main Thread.
             try {
                 let greeting = await agent.call('hello_world', 'again, another');
                 console.log(greeting);
-                await agent.call('error', 'again, another');
+                await agent.call('error', 'To err is Human.');
             }
             catch (err) {
-                console.error(err);
+                console.error(`Now, back in the Main Thread, we will handle the`, err);
             }
             finally {
                 worker.terminate();
@@ -23,11 +23,11 @@ if (isMainThread) { // This is the Main Thread.
         console.log(greeting);
     })();
 } else { // This is a Worker Thread.
-    function nowThrowAnError() {
-        throw new Error('To err is Human.'); // This will throw in the Main Thread.
+    function nowThrowAnError(message:string) {
+        throw new Error(message); // This will throw in the Main Thread.
     }
-    function callAFunction() {
-        nowThrowAnError();
+    function callAFunction(message:string) {
+        nowThrowAnError(message);
     }
     if (parentPort) {
         const agent = new Agent(parentPort);

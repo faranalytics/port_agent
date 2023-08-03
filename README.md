@@ -24,10 +24,10 @@ if (isMainThread) { // This is the Main Thread.
             try {
                 let greeting = await agent.call('hello_world', 'again, another');
                 console.log(greeting);
-                await agent.call('error', 'again, another');
+                await agent.call('error', 'To err is Human.');
             }
             catch (err) {
-                console.error(err);
+                console.error(`Now, back in the Main Thread, we will handle the`, err);
             }
             finally {
                 worker.terminate();
@@ -37,18 +37,18 @@ if (isMainThread) { // This is the Main Thread.
         console.log(greeting);
     })();
 } else { // This is a Worker Thread.
-    function nowThrowAnError() {
-        throw new Error('To err is Human.'); // This will throw in the Main Thread.
+    function nowThrowAnError(message:string) {
+        throw new Error(message); // This will throw in the Main Thread.
     }
-    function callAFunction() {
-        nowThrowAnError();
+    function callAFunction(message:string) {
+        nowThrowAnError(message);
     }
     if (parentPort) {
         const agent = new Agent(parentPort);
         agent.register('hello_world', (value: string) => `Hello ${value} world!`);
         agent.register('error', callAFunction);
     }
-} 
+}  
 ```
 
 This example should log to the console:
@@ -69,73 +69,4 @@ Error: To err is Human.
 You can run the test using:
 ```bash
 npm run test
-```
-
-### Subclassing Agent
-An `Agent` can be used effectively as shown in the [Simple Example](#a-simple-example) or it can be subclassed in order to act as a "wrapper" around Worker threads.  In this example the `Agent` class is subclassed by `WorkerAgent` in order to provide the state (i.e., `online`, `ready`, and `exited`) of a Worker thread, which may be useful in some contexts.
-
-```ts
-import * as threads from 'node:worker_threads';
-import * as net from 'node:net';
-import { Agent } from 'port_agent';
-
-interface WorkerAgentOptions {
-    worker: threads.Worker;
-    workerOnlineTimeout: number;
-}
-
-export class WorkerAgent extends Agent {
-    public connections: number;
-    public online: boolean;
-    public exited: boolean;
-    public proxyServerConnectOptions?: net.SocketConnectOpts;
-    public ready: Promise<boolean>;
-    public workerOnlineTimeout: number;
-
-    constructor({
-        worker,
-        workerOnlineTimeout = 10000
-    }: WorkerAgentOptions
-    ) {
-        super(worker);
-        this.connections = 0;
-        this.online = false;
-        this.exited = false;
-        this.workerOnlineTimeout = workerOnlineTimeout;
-
-        this.ready = new Promise<boolean>((r, j) => {
-            const timeout = setTimeout(() => {
-                j(new Error(`Worker failed to come online in ${this.workerOnlineTimeout} milliseconds.`));
-            }, this.workerOnlineTimeout);
-            worker.on('online', () => {
-                clearTimeout(timeout);
-                this.online = true;
-                r(true);
-            });
-        });
-
-        worker.on('error', (err: Error) => {
-            this.ready = Promise.reject(err);
-        });
-
-        void (async () => {
-            try {
-                await this.register('worker_exit', () => this.exited = true);
-            }
-            catch (err) {
-                console.error(err);
-            }
-        })();
-    }
-
-    public async call(name: string, ...args: any): Promise<any> {
-        await this.ready;
-        return super.call(name, ...args);
-    }
-
-    public async register(name: string, fn: (...args: any) => any): Promise<any> {
-        await this.ready;
-        return super.register(name, fn);
-    }
-}
 ```
