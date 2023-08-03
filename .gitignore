@@ -9,4 +9,5 @@
 !/test
 !/test/*
 !/test/src
+!/test/src/**/*
 !CHANGELOG.md
