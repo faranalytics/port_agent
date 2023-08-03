@@ -6,4 +6,7 @@
 !/src
 !/src/*
 !/*.*
+!/test
+!/test/*
+!/test/src
 !CHANGELOG.md
