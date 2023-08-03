@@ -24,7 +24,7 @@ if (isMainThread) { // This is the Main Thread.
     })();
 } else { // This is a Worker Thread.
     function nowThrowAnError() {
-        throw new Error('To err is Human.');
+        throw new Error('To err is Human.'); // This will throw in the Main Thread.
     }
     function callAFunction() {
         nowThrowAnError();

@@ -33,19 +33,19 @@ if (isMainThread) { // This is the Main Thread.
                 worker.terminate();
             }
         });
-        let greeting = await agent.call('hello_world', 'another');
+        let greeting = await agent.call<string>('hello_world', 'another');
         console.log(greeting);
     })();
 } else { // This is a Worker Thread.
     function nowThrowAnError() {
-        throw new Error('To err is Human.');
+        throw new Error('To err is Human.'); // This will throw in the Main Thread.
     }
     function callAFunction() {
         nowThrowAnError();
     }
     if (parentPort) {
         const agent = new Agent(parentPort);
-        agent.register('hello_world', (value) => `Hello ${value} world!`);
+        agent.register('hello_world', (value: string) => `Hello ${value} world!`);
         agent.register('error', callAFunction);
     }
 } 
