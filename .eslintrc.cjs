@@ -21,7 +21,6 @@ module.exports = {
     },
     "ignorePatterns": [
       ".eslintrc.cjs", 
-      "test/**/*",
       "node_modules",
       "dist"
     ],

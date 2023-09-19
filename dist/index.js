@@ -1,87 +1,60 @@
-import * as threads from 'node:worker_threads';
-import { randomUUID } from 'node:crypto';
-
-interface CallOptions<T> {
-    id: string;
-    name: string;
-    r: (value: T) => void;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Agent = void 0;
+const node_crypto_1 = require("node:crypto");
+class Call {
+    id;
+    name;
+    r;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    j: (reason?: any) => void;
-}
-
-class Call<T> {
-    id: string;
-    name: string;
-    r: (value: T) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    j: (reason?: any) => void;
-    constructor({ id, name, r, j }: CallOptions<T>) {
+    j;
+    constructor({ id, name, r, j }) {
         this.id = id;
         this.name = name;
         this.r = r;
         this.j = j;
     }
 }
-
-interface CallMessageOptions {
-    id: string;
-    name: string;
-    args: Array<unknown>;
-}
-
 class CallMessage {
-    type: string;
-    id: string;
-    name: string;
-    args: Array<unknown>;
-
-    constructor({ id, name, args }: CallMessageOptions) {
+    type;
+    id;
+    name;
+    args;
+    constructor({ id, name, args }) {
         this.type = 'CallMessage';
         this.id = id;
         this.name = name;
         this.args = args;
     }
 }
-
-interface ResultMessageOptions {
-    id: string;
-    value?: unknown;
-    error?: { [key: string]: unknown };
-}
-
 class ResultMessage {
-    type: string;
-    id: string;
-    value?: unknown;
-    error?: { [key: string]: unknown };
-
-    constructor({ id, value, error }: ResultMessageOptions) {
+    type;
+    id;
+    value;
+    error;
+    constructor({ id, value, error }) {
         this.type = 'ResultMessage';
         this.id = id;
         this.value = value;
         this.error = error;
     }
 }
-
-export class Agent {
-
-    public port: threads.MessagePort | threads.Worker;
+class Agent {
+    port;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private calls: Set<Call<any>>;
-    private messages: Set<CallMessage>;
+    calls;
+    messages;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private registrar: Map<string, (...args: Array<any>) => any>;
-    constructor(port: threads.MessagePort | threads.Worker) {
-
+    registrar;
+    constructor(port) {
         this.port = port;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.calls = new Set<Call<any>>();
-        this.messages = new Set<CallMessage>();
+        this.calls = new Set();
+        this.messages = new Set();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.registrar = new Map<string, (...args: Array<any>) => any>();
-
+        this.registrar = new Map();
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        this.port.on('message', async (message: CallMessage & ResultMessage) => {
+        this.port.on('message', async (message) => {
             if (message.type == 'CallMessage') {
                 const fn = this.registrar.get(message.name);
                 if (fn) {
@@ -100,8 +73,8 @@ export class Agent {
                 for (const call of this.calls) {
                     if (call.id === message.id) {
                         if (message.error) {
-                            const error: { [key: string]: unknown } = new Error() as unknown as { [key: string]: unknown };
-                            for (const [key, value] of Object.entries<unknown>(message.error)) {
+                            const error = new Error();
+                            for (const [key, value] of Object.entries(message.error)) {
                                 error[key] = value;
                             }
                             call.j(error);
@@ -114,11 +87,10 @@ export class Agent {
             }
         });
     }
-
-    private async tryPost(fn: (...args: Array<unknown>) => unknown, message: CallMessage): Promise<void> {
+    async tryPost(fn, message) {
         try {
             const value = await fn(...(message.args ? message.args : []));
-            await new Promise<null>((r, j) => {
+            await new Promise((r, j) => {
                 this.port.once('messageerror', j);
                 this.port.postMessage(new ResultMessage({ id: message.id, value }));
                 this.port.removeListener('messageerror', j);
@@ -126,12 +98,12 @@ export class Agent {
             });
         }
         catch (err) {
-            await new Promise<null>((r, j) => {
+            await new Promise((r, j) => {
                 this.port.once('messageerror', j);
                 if (err instanceof Error) {
-                    const error: { [key: string]: unknown } = {};
+                    const error = {};
                     for (const name of Object.getOwnPropertyNames(err)) {
-                        error[name] = Object.getOwnPropertyDescriptor(err as unknown as { [key: string]: unknown }, name)?.value;
+                        error[name] = Object.getOwnPropertyDescriptor(err, name)?.value;
                     }
                     this.port.postMessage(new ResultMessage({ id: message.id, error }));
                 }
@@ -140,19 +112,17 @@ export class Agent {
             });
         }
     }
-
-    public async call<T>(name: string, ...args: Array<unknown>): Promise<T> {
-        return new Promise<T>((r, j) => {
-            const id = randomUUID();
-            this.calls.add(new Call<T>({ id, name, r, j }));
+    async call(name, ...args) {
+        return new Promise((r, j) => {
+            const id = (0, node_crypto_1.randomUUID)();
+            this.calls.add(new Call({ id, name, r, j }));
             this.port.once('messageerror', j);
             this.port.postMessage(new CallMessage({ id, name, args }));
             this.port.removeListener('messageerror', j);
         });
     }
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public register(name: string, fn: (...args: Array<any>) => any): void {
+    register(name, fn) {
         this.registrar.set(name, fn);
         for (const message of this.messages) {
             if (message.name === name) {
@@ -160,8 +130,8 @@ export class Agent {
             }
         }
     }
-
-    public deregister(name: string) {
+    deregister(name) {
         this.registrar.delete(name);
     }
 }
+exports.Agent = Agent;
