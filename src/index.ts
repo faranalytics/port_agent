@@ -161,7 +161,7 @@ export class Agent {
         }
     }
 
-    public deregister(name: string) {
+    public deregister(name: string): void {
         this.registrar.delete(name);
     }
 }

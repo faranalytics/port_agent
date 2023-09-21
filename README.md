@@ -3,15 +3,48 @@
 A RPC-like facility for making inter-thread function calls.
 
 ## Features
-- Port Agent will marshall return values and Errors (stack traces) back to the caller.  
-- Registered functions (i.e., Agent.register) are persistent.  
+- Port Agent will marshall the return value or `Error` back to the caller.  
+- Registered functions (i.e., Agent.register) are persistent.
 - Late binding registrants will be called with previously awaited invocations. 
+
+## Table of Contents
+1. [API](#api)
+2. [Examples](#examples)
+
+## API
+
+### The `Agent` Class
+
+#### port_agent.Agent(port)
+- port `<threads.MessagePort>` or `<threads.Worker>` The message port.
+
+#### agent.call\<T\>(name, ...args)
+- name `<string>` The name of the registered function.
+- ...args `<Array<unknown>>` Arguments to be passed to the registered function.
+
+- Returns: `<Promise<T>>`
+
+#### agent.register(name, fn)
+- name `<string>` The name of the registered function.
+- fn `<(...args: Array<any>) => any>` The registered function.
+
+- Returns: `<void>`
+
+#### agent.deregister(name)
+- name `<string>` The name of the registered function.
+
+- Returns: `<void>`
 
 ## Examples
 
-### A Simple Example
+### An Example
 `./tests/test/index.ts`
 ```ts
+import { Worker, isMainThread, parentPort } from 'node:worker_threads';
+import { fileURLToPath } from 'node:url';
+import { strict as assert } from 'node:assert';
+import { Agent } from 'port_agent';
+
 if (isMainThread) { // This is the Main Thread.
     void (async () => {
 
@@ -21,7 +54,9 @@ if (isMainThread) { // This is the Main Thread.
         worker.on('online', async () => {
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another');
+
                 console.log(greeting);
+                
                 await agent.call('error', 'To err is Human.');
             }
             catch (err) {
@@ -32,7 +67,7 @@ if (isMainThread) { // This is the Main Thread.
             }
         });
 
-        const greeting = await agent.call<string>('hello_world', 'another');
+        const greeting = await agent.call<string>('hello_world', 'another'); // This call will be invoked once the `hello_world` function has been bound in the Worker.
         console.log(greeting);
     })();
 } else { // This is a Worker Thread.
@@ -50,7 +85,7 @@ if (isMainThread) { // This is the Main Thread.
         agent.register('hello_world', (value: string): string => `Hello ${value} world!`);
         agent.register('error', callAFunction);
     }
-}   
+} 
 ```
 
 This example should log to the console:
@@ -73,7 +108,7 @@ Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]:
 }
 ```
 
-#### Run Test
+#### Run the test.
 You can run the test using:
 ```bash
 npm run test

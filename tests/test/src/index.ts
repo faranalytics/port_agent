@@ -15,7 +15,9 @@ if (isMainThread) { // This is the Main Thread.
         worker.on('online', async () => {
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another');
+
                 console.log(greeting);
+                
                 await agent.call('error', 'To err is Human.');
             }
             catch (err) {
@@ -26,7 +28,7 @@ if (isMainThread) { // This is the Main Thread.
             }
         });
 
-        const greeting = await agent.call<string>('hello_world', 'another');
+        const greeting = await agent.call<string>('hello_world', 'another'); // This call will be invoked once the `hello_world` function has been bound in the Worker.
         console.log(greeting);
     })();
 } else { // This is a Worker Thread.
