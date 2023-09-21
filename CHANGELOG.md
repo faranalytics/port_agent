@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1] - 2023-09-21
+### Fixed
+- Improve documentation.
+
 ## [1.2.0] - 2023-09-19
 ### Fixed
 - Improve typings.
