@@ -18,7 +18,7 @@ if (isMainThread) { // This is the Main Thread.
 
                 console.log(greeting);
 
-                await agent.call('error', 'To err is Human.');
+                await agent.call('a_reasonable_assertion', 'To err is Human.');
             }
             catch (err) {
                 console.error(`Now, back in the Main Thread, we will handle the`, err);
@@ -35,7 +35,7 @@ if (isMainThread) { // This is the Main Thread.
 } else { // This is a Worker Thread.
 
     function nowThrowAnError(message: string) {
-        // This seems like a reasonable assertion...
+        // This seems reasonable...
         assert.notEqual(typeof new Object(), typeof null, message);
     }
 
@@ -46,6 +46,6 @@ if (isMainThread) { // This is the Main Thread.
     if (parentPort) {
         const agent = new Agent(parentPort);
         agent.register('hello_world', (value: string): string => `Hello ${value} world!`);
-        agent.register('error', callAFunction);
+        agent.register('a_reasonable_assertion', callAFunction);
     }
 } 
