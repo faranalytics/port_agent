@@ -45,7 +45,9 @@ if (isMainThread) { // This is the Main Thread.
 
     if (parentPort) {
         const agent = new Agent(parentPort);
+
         agent.register('hello_world', (value: string): string => `Hello ${value} world!`);
+        
         agent.register('a_reasonable_assertion', callAFunction);
     }
 } 
