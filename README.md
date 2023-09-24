@@ -43,7 +43,8 @@ In this example you will:
 
 1. Instantiate a Worker thread.
 2. Instantiate an Agent in the Main thread.
-3. Use the Agent to call the `hello_world` function - a function that has not yet been registered in the Worker thread.
+3. Use the Agent to call the `hello_world` function.
+    - At this point the `hello_world` function *has not* yet been registered in the Worker thread.
 4. Wait for the Worker to come online.
 5. Instantiate an Agent in the Worker thread.
 6. Use the Agent to register the `hello_world` function in the Worker.
