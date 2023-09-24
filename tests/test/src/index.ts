@@ -48,6 +48,6 @@ if (isMainThread) { // This is the Main Thread.
 
         agent.register('hello_world', (value: string): string => `Hello ${value} world!`);
         
-        agent.register('a_reasonable_assertion', callAFunction);
+        agent.register('a_reasonable_assertion', callAFunction); // This will throw in the Main thread.
     }
 } 

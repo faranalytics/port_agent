@@ -38,6 +38,22 @@ A RPC-like facility for making inter-thread function calls.
 ## Examples
 
 ### An Example
+
+In this example you will:
+
+1. Instantiate a Worker thread.
+2. Instantiate an Agent.
+3. Use the Agent to call the `hello_world` function - a function that has not yet been registered in the Worker thread.
+4. Wait for the Worker to come online.
+5. Use the Agent to register the `hello_world` function in the Worker.
+6. Use the Agent to register the `a_reasonable_assertion` function in the Worker.
+7. Use the Agent to call the function registered as `hello_world`.
+8. Await (3).
+9. Await (7).
+10. Use the Agent to call the function registered as `a_reasonable_assertion`.
+11. Catch the Error in the Main thread that is produced by the `a_reasonable_assertion` in the Worker thread.
+12. Examine the output.
+
 `./tests/test/index.ts`
 ```ts
 import { Worker, isMainThread, parentPort } from 'node:worker_threads';
@@ -51,7 +67,6 @@ if (isMainThread) { // This is the Main Thread.
         const worker = new Worker(fileURLToPath(import.meta.url));
         const agent = new Agent(worker);
 
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         worker.on('online', async () => {
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another');
@@ -88,12 +103,12 @@ if (isMainThread) { // This is the Main Thread.
 
         agent.register('hello_world', (value: string): string => `Hello ${value} world!`);
         
-        agent.register('a_reasonable_assertion', callAFunction);
+        agent.register('a_reasonable_assertion', callAFunction); // This will throw in the Main thread.
     }
-}  
+} 
 ```
 
-This example should log to the console:
+This example should log to the console something that looks similar to this:
 
 ```bash
 Hello another world!
