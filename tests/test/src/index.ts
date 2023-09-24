@@ -17,7 +17,7 @@ if (isMainThread) { // This is the Main Thread.
                 const greeting = await agent.call<string>('hello_world', 'again, another');
 
                 console.log(greeting);
-                
+
                 await agent.call('error', 'To err is Human.');
             }
             catch (err) {
@@ -28,12 +28,14 @@ if (isMainThread) { // This is the Main Thread.
             }
         });
 
-        const greeting = await agent.call<string>('hello_world', 'another'); // This call will be invoked once the `hello_world` function has been bound in the Worker.
+        // This call will be invoked once the `hello_world` function has been bound in the Worker.
+        const greeting = await agent.call<string>('hello_world', 'another');
         console.log(greeting);
     })();
 } else { // This is a Worker Thread.
 
     function nowThrowAnError(message: string) {
+        // This seems like a reasonable assertion...
         assert.notEqual(typeof new Object(), typeof null, message);
     }
 
