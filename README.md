@@ -42,17 +42,19 @@ A RPC-like facility for making inter-thread function calls.
 In this example you will:
 
 1. Instantiate a Worker thread.
-2. Instantiate an Agent.
+2. Instantiate an Agent in the Main thread.
 3. Use the Agent to call the `hello_world` function - a function that has not yet been registered in the Worker thread.
 4. Wait for the Worker to come online.
-5. Use the Agent to register the `hello_world` function in the Worker.
-6. Use the Agent to register the `a_reasonable_assertion` function in the Worker.
-7. Use the Agent to call the function registered as `hello_world`.
-8. Await (3).
-9. Await (7).
-10. Use the Agent to call the function registered as `a_reasonable_assertion`.
-11. Catch the Error in the Main thread that is produced by the `a_reasonable_assertion` in the Worker thread.
-12. Examine the output.
+5. Instantiate an Agent in the Worker thread.
+6. Use the Agent to register the `hello_world` function in the Worker.
+7. Use the Agent to register the `a_reasonable_assertion` function in the Worker.
+8. Use the Agent to call the function registered as `hello_world`.
+9. Await (3) and log the return value.
+10. Await (8) and log the return value.
+11. Use the Agent to call the function registered as `a_reasonable_assertion`.
+12. Await (11).
+13. Catch the Error in the Main thread that is produced by the `a_reasonable_assertion` in the Worker thread.
+14. Examine the output.
 
 `./tests/test/index.ts`
 ```ts
