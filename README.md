@@ -55,7 +55,7 @@ In this example you will:
 11. Use the Agent to call the function registered as `a_reasonable_assertion`.
 12. Await (11).
 13. Catch the Error and log the stack trace in the Main thread.
-    - The Error was produced by the reasonable assertion made in the `nowThrowAnError` function in the Worker thread.
+    - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the Worker thread.
 14. Examine the output.
 
 `./tests/test/index.ts`
