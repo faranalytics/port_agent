@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.3] - 2023-09-24
+### Added
+- Add keywords.
+
 ## [1.2.2] - 2023-09-23
 ### Changed
 - Improve documentation.
