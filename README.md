@@ -141,7 +141,7 @@ if (isMainThread) { // This is the Main Thread.
 
     function nowThrowAnError(message: string) {
 
-        // This would seem reasonable...
+        // This would seem reasonable, no?...
         assert.notEqual(typeof new Object(), typeof null, message);
     }
 
