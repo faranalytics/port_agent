@@ -9,7 +9,8 @@ A RPC-like facility for making inter-thread function calls.
 
 ## Table of Contents
 1. [API](#api)
-2. [Examples](#examples)
+2. [Usage](#usage)
+3. [Examples](#examples)
 
 ## API
 
