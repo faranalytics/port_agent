@@ -83,8 +83,6 @@ class Agent {
                     call.j(err);
                 }
             });
-        }
-        if (port instanceof threads.Worker) {
             this.port.once('exit', (exitCode) => {
                 for (const call of this.calls) {
                     call.j(exitCode);

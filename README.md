@@ -59,7 +59,8 @@ In this example you will:
 14. Await abends.
 15. The Worker exited; hence, log the exit code.
     - If an unhandled exception had occured in the Worker it would have been handled accordingly.
-16. Examine the output.
+
+Please see the comments in the code that specify each of the steps above.
 
 `./tests/test/index.ts`
 ```ts
