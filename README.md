@@ -132,7 +132,7 @@ if (isMainThread) { // This is the Main Thread.
             }
         });
 
-        // The hello_world function call will be invoked in the Worker thread once the `hello_world` function has been bound.
+        // The `hello_world` function call will be invoked in the Worker thread once the `hello_world` function has been bound.
         const greeting = await agent.call<string>('hello_world', 'another'); // (3)
 
         console.log(greeting); // (9)
@@ -140,7 +140,8 @@ if (isMainThread) { // This is the Main Thread.
 } else { // This is a Worker Thread.
 
     function nowThrowAnError(message: string) {
-        // This seems reasonable...
+
+        // This would seem reasonable...
         assert.notEqual(typeof new Object(), typeof null, message);
     }
 
