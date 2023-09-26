@@ -163,8 +163,8 @@ if (isMainThread) { // This is the Main Thread.
 This example should log to the console something that looks similar to this:
 
 ```bash
-Hello another world!
-Hello again, another world!
+Hello, another world!
+Hello, again, another world!
 Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]: To err is Human.
     at nowThrowAnError (file:///port_agent/tests/test/dist/index.js:31:16)
     at callAFunction (file:///port_agent/tests/test/dist/index.js:34:9)
