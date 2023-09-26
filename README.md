@@ -41,10 +41,14 @@ A RPC-like facility for making inter-thread function calls.
 
 ### Common Patterns
 #### You can create a new `Agent` by passing a `parentPort` or a `Worker` instance to the `Agent` constructor:
-
+In the Main thread,
 ```ts
 const worker = new Worker(fileURLToPath(import.meta.url));
 const agent = new Agent(worker);
+```
+or, in a Worker thread,
+```ts
+const agent = new Agent(worker_threads.parentPort);
 ```
 
 #### You can register a function in the main thread or in a Worker thread using the `Agent.register` method:
