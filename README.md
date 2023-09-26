@@ -132,7 +132,7 @@ if (isMainThread) { // This is the Main Thread.
             }
         });
 
-        // The `hello_world` function call will be invoked in the Worker thread once the `hello_world` function has been bound.
+        // The `hello_world` function call will be invoked in the Worker thread once the function is registered.
         const greeting = await agent.call<string>('hello_world', 'another'); // (3)
 
         console.log(greeting); // (9)
