@@ -74,7 +74,6 @@ if (isMainThread) { // This is the Main Thread.
         const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
         const agent = new Agent(worker); // (2)
 
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         worker.on('online', async () => { // (4)
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another'); // (8)
