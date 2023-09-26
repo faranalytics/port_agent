@@ -149,6 +149,7 @@ Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]:
   expected: 'object',
   operator: 'notStrictEqual'
 }
+Exit code: 1
 ```
 
 #### Run the test.

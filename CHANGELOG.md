@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.4] - 2023-09-25
+### Fixed
+- Throw on unhandled exceptions or on an exit of the Worker thread.
+
 ## [1.2.3] - 2023-09-24
 ### Added
 - Add keywords.
