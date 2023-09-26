@@ -39,7 +39,7 @@ A RPC-like facility for making inter-thread function calls.
 
 ## Usage
 
-### Common patterns.
+### Common Patterns
 #### You can create a new `Agent` by passing a `parentPort` or a `Worker` instance to the `Agent` constructor:
 
 ```ts
