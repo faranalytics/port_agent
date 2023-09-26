@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.5] - 2023-09-26
+### Changed
+- Improve documentation.
+### Fixed
+- Fix unnecessary conditional logic.
+
 ## [1.2.4] - 2023-09-25
 ### Fixed
 - Throw on unhandled exceptions or on an exit of the Worker thread.
