@@ -67,7 +67,7 @@ In this example you will:
 1. Instantiate a Worker thread.
 2. Instantiate an Agent in the Main thread.
 3. Use the Agent to call the `hello_world` function.
-    - At this point the `hello_world` function *has not* yet been registered in the Worker thread.
+    - At this point the `hello_world` function *has not* yet been registered in the Worker thread.  The function will be called once it is registered.
 4. Wait for the Worker to come online.
 5. Instantiate an Agent in the Worker thread.
 6. Use the Agent to register the `hello_world` function in the Worker.
@@ -98,7 +98,7 @@ if (isMainThread) { // This is the Main Thread.
         const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
         const agent = new Agent(worker); // (2)
 
-        worker.on('online', async () => { // (4)
+        worker.on('online', /* (4) */ async () => { 
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another'); // (8)
 
