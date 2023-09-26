@@ -49,7 +49,7 @@ const agent = new Agent(worker);
 You can register a function in the main thread or in a Worker thread using the `Agent.register` method:
 
 ```ts
-agent.register('hello_world', (value: string): string => `Hello ${value} world!`);
+agent.register('hello_world', (value: string): string => `Hello, ${value} world!`);
 ```
 
 You can call a function in the main thread or in a Worker thread using the `Agent.call` method:
@@ -146,7 +146,7 @@ if (isMainThread) { // This is the Main Thread.
     if (parentPort) {
         const agent = new Agent(parentPort); // (5)
 
-        agent.register('hello_world', (value: string): string => `Hello ${value} world!`); // (6)
+        agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
 
         // This will throw in the Main thread
         agent.register('a_reasonable_assertion', callAFunction); // (7).
