@@ -66,16 +66,16 @@ In this example you will:
 
 1. Instantiate a Worker thread.
 2. Instantiate an Agent in the Main thread.
-3. Use the Agent to call the `hello_world` function.
+3. Use the Agent to call the `hello_world` function and await.
     - At this point the `hello_world` function *has not* yet been registered in the Worker thread.  The function will be called once it is registered.
 4. Wait for the Worker to come online.
 5. Instantiate an Agent in the Worker thread.
 6. Use the Agent to register the `hello_world` function in the Worker.
 7. Use the Agent to register the `a_reasonable_assertion` function in the Worker.
-8. Use the Agent to call the function registered as `hello_world`.
+8. Use the Agent to call the function registered as `hello_world` and await.
 9. Resolve (3) and log the return value.
 10. Resolve (8) and log the return value.
-11. Use the Agent to call the function registered as `a_reasonable_assertion`.
+11. Use the Agent to call the function registered as `a_reasonable_assertion` and await.
 12. Resolve (11) and catch the Error and log the stack trace in the Main thread.
     - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the Worker thread.
 13. Terminate the Worker asynchronously.
