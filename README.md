@@ -57,7 +57,7 @@ In this example you will:
     - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the Worker thread.
 13. Terminate the Worker asynchronously.
 14. Await abends.
-15. The Worker exited normally; hence, log the exit code.
+15. The Worker exited; hence, log the exit code.
     - If an unhandled exception had occured in the Worker it would have been handled accordingly.
 16. Examine the output.
 
