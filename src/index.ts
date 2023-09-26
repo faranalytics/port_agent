@@ -80,6 +80,22 @@ export class Agent {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.registrar = new Map<string, (...args: Array<any>) => any>();
 
+        if (port instanceof threads.Worker) {
+            this.port.once('error', (err: Error) => {
+                for (const call of this.calls) {
+                    call.j(err);
+                }
+            });
+        }
+
+        if (port instanceof threads.Worker) {
+            this.port.once('exit', (exitCode: number) => {
+                for (const call of this.calls) {
+                    call.j(exitCode);
+                }
+            });
+        }
+
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.port.on('message', async (message: CallMessage & ResultMessage) => {
             if (message.type == 'CallMessage') {
