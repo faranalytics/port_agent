@@ -4,7 +4,7 @@ A RPC-like facility for making inter-thread function calls.
 
 ## Features
 - Port Agent will marshall the return value or `Error` back to the caller.  
-- Registered functions (i.e., Agent.register) are persistent.
+- Registered functions (i.e., `Agent.register`) are persistent and can be deregistered using the `Agent.deregister` method.
 - Late binding registrants will be called with previously awaited invocations. 
 
 ## Table of Contents
@@ -34,6 +34,27 @@ A RPC-like facility for making inter-thread function calls.
 - name `<string>` The name of the registered function.
 
 - Returns: `<void>`
+
+## Usage
+
+You can create a new `Agent` by passing a `parentPort` or a `Worker` instance to the `Agent` constructor:
+
+```ts
+        const worker = new Worker(fileURLToPath(import.meta.url));
+        const agent = new Agent(worker);
+```
+
+You can register a function in the main thread or in a Worker thread using the `Agent.register` method:
+
+```ts
+        agent.register('hello_world', (value: string): string => `Hello ${value} world!`);
+```
+
+You can call a function in the main thread or in a Worker thread using the `Agent.call` method:
+
+```ts
+        const greeting = await agent.call<string>('hello_world', 'happy');
+```
 
 ## Examples
 
