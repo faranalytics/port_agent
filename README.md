@@ -73,10 +73,10 @@ In this example you will:
 6. Use the Agent to register the `hello_world` function in the Worker.
 7. Use the Agent to register the `a_reasonable_assertion` function in the Worker.
 8. Use the Agent to call the function registered as `hello_world`.
-9. Await (3) and log the return value.
-10. Await (8) and log the return value.
+9. Resolve (3) and log the return value.
+10. Resolve (8) and log the return value.
 11. Use the Agent to call the function registered as `a_reasonable_assertion`.
-12. Await (11) and catch the Error and log the stack trace in the Main thread.
+12. Resolve (11) and catch the Error and log the stack trace in the Main thread.
     - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the Worker thread.
 13. Terminate the Worker asynchronously.
 14. Await abends.
@@ -98,7 +98,7 @@ if (isMainThread) { // This is the Main Thread.
         const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
         const agent = new Agent(worker); // (2)
 
-        worker.on('online', /* (4) */ async () => { 
+        worker.on('online', /*(4)*/ async () => { 
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another'); // (8)
 
