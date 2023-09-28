@@ -201,7 +201,7 @@ Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]:
 Exit code: 1
 ```
 
-### Run the test.
+### Run the Example
 
 #### Clone the repository.
 ```bash
