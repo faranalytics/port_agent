@@ -39,8 +39,8 @@ Please see the [Example](#examples) for variations on its usage.
 
 - Errors:
 
-  - If the registered function in the other thread throws an `Error`, the `Error` will be marshalled back to this thread and the `Promise` will reject with the `Error` as its failure reason.
-  - If a worker thread throws an unhandled exception while a call is awaited, the `Error` will be marshalled back to this thread and the `Promise` will reject with the unhandled exception as its failure reason.
+  - If the registered function in the other thread throws an `Error`, the `Error` will be marshalled back to *this* thread and the `Promise` will reject with the `Error` as its failure reason.
+  - If a worker thread throws an unhandled exception while a call is awaited, the `Error` will be marshalled back to *this* thread and the `Promise` will reject with the unhandled exception as its failure reason.
   - If a worker exits while a call is awaited, the `Error` will be marshalled back to *this* thread and the `Promise` will reject with the exit code as its failure reason.
 
 #### agent.register(name, fn)
