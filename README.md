@@ -3,8 +3,8 @@
 A RPC-like facility for making inter-thread function calls.
 
 ## Features
-- Port Agent will marshall the return value or `Error` from the *other thread* back to the caller.
-- The *other thread* may be the main thread or a Worker thread.
+- Port Agent will marshall the return value or `Error` from the *other* thread back to the caller.
+- The *other* thread may be the main thread or a Worker thread.
 - Registered functions (i.e., `Agent.register`) persist until deregistered (i.e., `Agent.deregister`) .
 - Late binding registrants will be called with previously awaited invocations. 
 
@@ -20,7 +20,7 @@ A RPC-like facility for making inter-thread function calls.
 
 An instance of an `Agent` facilitates communication across threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread; this can be done in either order.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
 
-Late binding registrants will be called with previously awaited invocations; thus eliminating the race condition.  This means that you may await a call to a function that has not yet been registered.  Once the function is registered in the other thread it will be called and its return value or `Error` will be marshalled back to the caller.
+Late binding registrants will be called with previously awaited invocations; thus eliminating the race condition.  This means that you may await a call to a function that has not yet been registered.  Once the function is registered in the *other* thread it will be called and its return value or `Error` will be marshalled back to the caller.
 
 Please see the [Example](#examples) for variations on its usage.
 
@@ -39,9 +39,9 @@ Please see the [Example](#examples) for variations on its usage.
 
 - Errors:
 
-  - If the registered function in the other thread throws an `Error`, the `Error` will be marshalled back to *this* thread and the `Promise` will reject with the `Error` as its failure reason.
-  - If a worker thread throws an unhandled exception while a call is awaited, the `Error` will be marshalled back to *this* thread and the `Promise` will reject with the unhandled exception as its failure reason.
-  - If a worker exits while a call is awaited, the `Error` will be marshalled back to *this* thread and the `Promise` will reject with the exit code as its failure reason.
+  - If the registered function in the *other* thread throws an `Error`, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the `Error` as its failure reason.
+  - If a worker thread throws an unhandled exception while a call is awaited, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the unhandled exception as its failure reason.
+  - If a worker exits while a call is awaited, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the exit code as its failure reason.
 
 #### agent.register(name, fn)
 - name `<string>` The name of the registered function.
