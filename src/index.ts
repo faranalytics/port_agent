@@ -10,11 +10,12 @@ interface CallOptions<T> {
 }
 
 class Call<T> {
-    id: string;
-    name: string;
-    r: (value: T) => void;
+    public id: string;
+    public name: string;
+    public r: (value: T) => void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    j: (reason?: any) => void;
+    public j: (reason?: any) => void;
+
     constructor({ id, name, r, j }: CallOptions<T>) {
         this.id = id;
         this.name = name;
@@ -30,10 +31,10 @@ interface CallMessageOptions {
 }
 
 class CallMessage {
-    type: string;
-    id: string;
-    name: string;
-    args: Array<unknown>;
+    public type: string;
+    public id: string;
+    public name: string;
+    public args: Array<unknown>;
 
     constructor({ id, name, args }: CallMessageOptions) {
         this.type = 'CallMessage';
@@ -50,10 +51,10 @@ interface ResultMessageOptions {
 }
 
 class ResultMessage {
-    type: string;
-    id: string;
-    value?: unknown;
-    error?: { [key: string]: unknown };
+    public type: string;
+    public id: string;
+    public value?: unknown;
+    public error?: { [key: string]: unknown };
 
     constructor({ id, value, error }: ResultMessageOptions) {
         this.type = 'ResultMessage';
@@ -67,10 +68,11 @@ export class Agent {
 
     public port: threads.MessagePort | threads.Worker;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private calls: Set<Call<any>>;
-    private messages: Set<CallMessage>;
+    public calls: Set<Call<any>>;
+    public messages: Set<CallMessage>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private registrar: Map<string, (...args: Array<any>) => any>;
+    public registrar: Map<string, (...args: Array<any>) => any>;
+
     constructor(port: threads.MessagePort | threads.Worker) {
 
         this.port = port;
@@ -129,7 +131,7 @@ export class Agent {
         });
     }
 
-    private async tryPost(fn: (...args: Array<unknown>) => unknown, message: CallMessage): Promise<void> {
+    protected async tryPost(fn: (...args: Array<unknown>) => unknown, message: CallMessage): Promise<void> {
         try {
             const value = await fn(...(message.args ? message.args : []));
             await new Promise<null>((r, j) => {
