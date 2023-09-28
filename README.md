@@ -1,9 +1,10 @@
 # Port Agent
 
+## Introduction
 A RPC-like facility for making inter-thread function calls.
 
-## Features
-- Port Agent will marshall the return value or `Error` from the *other* thread back to the caller.
+### Features
+- Port Agent will marshal the return value or `Error` from the *other* thread back to the caller.
 - The *other* thread may be the main thread or a Worker thread.
 - Registered functions (i.e., `Agent.register`) persist until deregistered (i.e., `Agent.deregister`) .
 - Late binding registrants will be called with previously awaited invocations. 
