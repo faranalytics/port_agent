@@ -37,6 +37,12 @@ Please see the [Example](#examples) for variations on its usage.
 
 - Returns: `<Promise<T>>`
 
+- Errors
+
+  - If the registered function in the other thread throws and `Error`, the `Error` will be marshalled back to this thread and the `Promise` will reject with the error.
+  - If a worker thread throws an unhandled exception while a call is awaited, the `Error` will be marshalled back to this thread and the `Promise` will reject with the unhandled exception.
+  - If a worker exits while a call is awaited, the `Error` will be marshalled back to this thread and the `Promise` will reject with the exit code.
+
 #### agent.register(name, fn)
 - name `<string>` The name of the registered function.
 - fn `<(...args: Array<any>) => any>` The registered function.
@@ -51,7 +57,9 @@ Please see the [Example](#examples) for variations on its usage.
 ## Usage
 
 ### How to create an `Agent` instance.
+
 #### You can create a new `Agent` by passing a `parentPort` or a `Worker` instance to the `Agent` constructor:
+
 In the Main thread,
 ```ts
 const worker = new Worker(fileURLToPath(import.meta.url));
@@ -62,6 +70,7 @@ or, in a Worker thread,
 const agent = new Agent(worker_threads.parentPort);
 ```
 ### How to use an `Agent` instance.
+
 #### You can register a function in the main thread or in a worker thread using the `Agent.register` method:
 
 ```ts
