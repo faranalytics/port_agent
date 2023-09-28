@@ -32,7 +32,7 @@
     "api",
     "ipc",
     "concurrency",
-    "marshall",
+    "marshal",
     "multithreaded",
     "multithreading",
     "parallelism",
