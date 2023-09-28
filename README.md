@@ -201,8 +201,17 @@ Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]:
 Exit code: 1
 ```
 
+### Run the test.
+
+#### Clone the repository.
+```bash
+git clone https://github.com/faranalytics/port_agent.git
+```
+#### Change directory into the root of the repository.
+```bash
+cd port_agent
+```
 #### Run the test.
-You can run the test using:
 ```bash
 npm run test
 ```
