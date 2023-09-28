@@ -22,7 +22,7 @@ An instance of an `Agent` facilitates communication across threads.  The `Agent`
 
 Late binding registrants will be called with previously awaited invocations; thus addressing the race condition.  This means that you may await a call to a function that has not yet been registered.  Once the function is registered in the *other* thread it will be called and its return value or `Error` will be marshalled back to the caller.
 
-Please see the [Example](#examples) for variations on the `Agent`'s usage.
+Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ## API
 
