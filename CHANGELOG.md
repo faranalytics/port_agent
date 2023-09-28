@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.9] - 2023-09-28
+### Removed
+- Remove dist.
+### Changed
+- Improve documentation.
+
 ## [1.2.8] - 2023-09-28
 ### Fixed
 - Fix access specifiers.
@@ -67,6 +73,6 @@
 ### Changed
 - Improve examples.
 ### Deprecated
-### Removed
 ### Fixed
+### Removed
 ### Security

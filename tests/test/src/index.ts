@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { strict as assert } from 'node:assert';
 import { Agent } from 'port_agent';
 
-if (isMainThread) { // This is the Main Thread.
+if (isMainThread) { // This is the main thread.
     void (async () => {
 
         const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
@@ -21,7 +21,7 @@ if (isMainThread) { // This is the Main Thread.
                 await agent.call('a_reasonable_assertion', 'To err is Human.'); // (11)
             }
             catch (err) {
-                console.error(`Now, back in the Main Thread, we will handle the`, err); // (12)
+                console.error(`Now, back in the main thread, we will handle the`, err); // (12)
             }
             finally {
 
@@ -41,12 +41,12 @@ if (isMainThread) { // This is the Main Thread.
             }
         });
 
-        // This call will be invoked once the `hello_world` function has been bound in the Worker.
+        // This call will be invoked once the `hello_world` function has been bound in the worker.
         const greeting = await agent.call<string>('hello_world', 'another'); // (3)
 
         console.log(greeting); // (9)
     })();
-} else { // This is a Worker Thread.
+} else { // This is a worker thread.
 
     function nowThrowAnError(message: string) {
         // This seems reasonable...
@@ -62,7 +62,7 @@ if (isMainThread) { // This is the Main Thread.
 
         agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
 
-        // This will throw in the Main thread
+        // This will throw in the main thread
         agent.register('a_reasonable_assertion', callAFunction); // (7).
     }
 } 

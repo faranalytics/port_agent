@@ -8,7 +8,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 
 ### Features
 - Port Agent will marshal the return value or `Error` from the *other* thread back to the caller.
-- The *other* thread may be the main thread or a Worker thread.
+- The *other* thread may be the main thread or a worker thread.
 - Registered functions (i.e., `Agent.register`) persist until deregistered (i.e., `Agent.deregister`) .
 - Late binding registrants will be called with previously awaited invocations. 
 
@@ -64,12 +64,12 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 #### You can create a new `Agent` by passing a `parentPort` or a `Worker` instance to the `Agent` constructor:
 
-In the Main thread,
+In the main thread,
 ```ts
 const worker = new Worker(fileURLToPath(import.meta.url));
 const agent = new Agent(worker);
 ```
-or, in a Worker thread,
+or, in a worker thread,
 ```ts
 const agent = new Agent(worker_threads.parentPort);
 ```
@@ -94,9 +94,9 @@ const greeting = await agent.call<string>('hello_world', 'happy');
 In this example you will:
 
 1. Instantiate a worker thread.
-2. Instantiate an Agent in the Main thread.
+2. Instantiate an Agent in the main thread.
 3. Use the Agent to call the `hello_world` function and await resolution.
-    - At this point the `hello_world` function *has not* yet been registered in the Worker thread.  The function will be called once it is registered.
+    - At this point the `hello_world` function *has not* yet been registered in the worker thread.  The function will be called once it is registered.
 4. Wait for the worker to come online.
 5. Instantiate an Agent in the worker thread.
 6. Use the Agent to register the `hello_world` function in the worker.
@@ -105,8 +105,8 @@ In this example you will:
 9. Resolve (3) and log the return value.
 10. Resolve (8) and log the return value.
 11. Use the Agent to call the function registered as `a_reasonable_assertion` and await resolution.
-12. Resolve (11) and catch the Error and log the stack trace in the Main thread.
-    - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the Worker thread.
+12. Resolve (11) and catch the Error and log the stack trace in the main thread.
+    - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the worker thread.
 13. Terminate the worker thread asynchronously.
 14. Await abends.
 15. The worker thread exited; hence, log the exit code.
@@ -156,12 +156,12 @@ if (isMainThread) { // This is the Main Thread.
             }
         });
 
-        // The `hello_world` function call will be invoked in the Worker thread once the function is registered.
+        // The `hello_world` function call will be invoked in the worker thread once the function is registered.
         const greeting = await agent.call<string>('hello_world', 'another'); // (3)
 
         console.log(greeting); // (9)
     })();
-} else { // This is a Worker Thread.
+} else { // This is a worker Thread.
 
     function nowThrowAnError(message: string) {
 
