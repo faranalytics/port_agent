@@ -5,13 +5,24 @@ A RPC-like facility for making inter-thread function calls.
 ## Features
 - Port Agent will marshall the return value or `Error` from the *other thread* back to the caller.
 - The *other thread* may be the main thread or a Worker thread.
-- Registered functions (i.e., `Agent.register`) persist until deregistered.
+- Registered functions (i.e., `Agent.register`) persist until deregistered (i.e., `Agent.deregister`) .
 - Late binding registrants will be called with previously awaited invocations. 
 
 ## Table of Contents
+1. [Concepts](#concepts)
 1. [API](#api)
 2. [Usage](#usage)
 3. [Examples](#examples)
+
+## Concepts
+
+### Agent
+
+An instance of an `Agent` facilitates communication accross threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread; this can be done in either order.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
+
+Late binding registrants will be called with previously awaited invocations; thus eliminating the race condition.  This means that you may await a call to a function that has not yet been registered.  Once the function is registered in the other thread it will be called and its return value or `Error` will be marshalled back to the caller.
+
+Please see the [Example](#examples) for variations on its usage.
 
 ## API
 
@@ -39,7 +50,7 @@ A RPC-like facility for making inter-thread function calls.
 
 ## Usage
 
-### Common Patterns
+### How to create an `Agent` instance.
 #### You can create a new `Agent` by passing a `parentPort` or a `Worker` instance to the `Agent` constructor:
 In the Main thread,
 ```ts
@@ -50,14 +61,14 @@ or, in a Worker thread,
 ```ts
 const agent = new Agent(worker_threads.parentPort);
 ```
-
-#### You can register a function in the main thread or in a Worker thread using the `Agent.register` method:
+### How to use an `Agent` instance.
+#### You can register a function in the main thread or in a worker thread using the `Agent.register` method:
 
 ```ts
 agent.register('hello_world', (value: string): string => `Hello, ${value} world!`);
 ```
 
-#### You can call a function registered in another thread (i.e., the main thread or a Worker thread) using the `Agent.call` method:
+#### You can call a function registered in another thread (i.e., the main thread or a worker thread) using the `Agent.call` method:
 
 ```ts
 const greeting = await agent.call<string>('hello_world', 'happy');
@@ -69,24 +80,24 @@ const greeting = await agent.call<string>('hello_world', 'happy');
 
 In this example you will:
 
-1. Instantiate a Worker thread.
+1. Instantiate a worker thread.
 2. Instantiate an Agent in the Main thread.
 3. Use the Agent to call the `hello_world` function and await resolution.
     - At this point the `hello_world` function *has not* yet been registered in the Worker thread.  The function will be called once it is registered.
-4. Wait for the Worker to come online.
-5. Instantiate an Agent in the Worker thread.
-6. Use the Agent to register the `hello_world` function in the Worker.
-7. Use the Agent to register the `a_reasonable_assertion` function in the Worker.
+4. Wait for the worker to come online.
+5. Instantiate an Agent in the worker thread.
+6. Use the Agent to register the `hello_world` function in the worker.
+7. Use the Agent to register the `a_reasonable_assertion` function in the worker.
 8. Use the Agent to call the function registered as `hello_world` and await resolution.
 9. Resolve (3) and log the return value.
 10. Resolve (8) and log the return value.
 11. Use the Agent to call the function registered as `a_reasonable_assertion` and await resolution.
 12. Resolve (11) and catch the Error and log the stack trace in the Main thread.
     - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the Worker thread.
-13. Terminate the Worker asynchronously.
+13. Terminate the worker thread asynchronously.
 14. Await abends.
-15. The Worker exited; hence, log the exit code.
-    - If an unhandled exception had occured in the Worker it would have been handled accordingly.
+15. The worker thread exited; hence, log the exit code.
+    - If an unhandled exception had occured in the worker thread it would have been handled accordingly.
 
 Please see the comments in the code that specify each of the steps above.
 
