@@ -18,7 +18,7 @@ A RPC-like facility for making inter-thread function calls.
 
 ### Agent
 
-An instance of an `Agent` facilitates communication accross threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread; this can be done in either order.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
+An instance of an `Agent` facilitates communication across threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread; this can be done in either order.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
 
 Late binding registrants will be called with previously awaited invocations; thus eliminating the race condition.  This means that you may await a call to a function that has not yet been registered.  Once the function is registered in the other thread it will be called and its return value or `Error` will be marshalled back to the caller.
 
@@ -97,7 +97,7 @@ In this example you will:
 13. Terminate the worker thread asynchronously.
 14. Await abends.
 15. The worker thread exited; hence, log the exit code.
-    - If an unhandled exception had occured in the worker thread it would have been handled accordingly.
+    - If an unhandled exception had occurred in the worker thread it would have been handled accordingly.
 
 Please see the comments in the code that specify each of the steps above.
 
