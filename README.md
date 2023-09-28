@@ -112,7 +112,7 @@ In this example you will:
 15. The worker thread exited; hence, log the exit code.
     - If an unhandled exception had occurred in the worker thread it would have been handled accordingly.
 
-Please see the comments in the code that specify each of the steps above.
+Please see the comments in the code that specify each of the steps above.  The output of the test is printed below.
 
 `./tests/test/index.ts`
 ```ts
