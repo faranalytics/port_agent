@@ -24,7 +24,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 
 An instance of an `Agent` facilitates communication across threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
 
-Late binding registrants will be called with previously awaited invocations; thus addressing the race condition.  This means that you may await a call to a function that has not yet been registered.  Once the function is registered in the *other* thread it will be called and its return value or `Error` will be marshalled back to the caller.
+Late binding registrants will be called with previously awaited invocations; thus preventing a race condition.  This means that you may await a call to a function that has not yet been registered.  Once the function is registered in the *other* thread it will be called and its return value or `Error` will be marshalled back to the caller.
 
 Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
