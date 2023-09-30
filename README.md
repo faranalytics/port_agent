@@ -272,17 +272,17 @@ Exit code: 1
 Seriously, the worker's thread ID was 1.
 ```
 
-### Run the Example
+#### Run the Test
 
-#### Clone the repository.
+##### Clone the repository.
 ```bash
 git clone https://github.com/faranalytics/port_agent.git
 ```
-#### Change directory into the root of the repository.
+##### Change directory into the root of the repository.
 ```bash
 cd port_agent
 ```
-#### Run the test.
+##### Run the test.
 ```bash
 npm run test
 ```
