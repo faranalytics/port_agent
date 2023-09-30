@@ -10,6 +10,10 @@
 - Improve documentation.
 - Export auxiliary classes and interfaces.
 
+## [1.2.10] - 2023-09-30
+### Deprecated
+- port_agent@1.2.10 was deprecated due to an inappropriate addition to the interface.
+
 ## [1.2.9] - 2023-09-28
 ### Removed
 - Remove dist.
