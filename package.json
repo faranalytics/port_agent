@@ -30,8 +30,8 @@
   },
   "keywords": [
     "api",
-    "ipc",
     "concurrency",
+    "ipc",
     "marshal",
     "multithreaded",
     "multithreading",

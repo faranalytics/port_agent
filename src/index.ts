@@ -1,7 +1,7 @@
 import * as threads from 'node:worker_threads';
 import { randomUUID } from 'node:crypto';
 
-interface CallOptions<T> {
+export interface CallOptions<T> {
     id: string;
     name: string;
     r: (value: T) => void;
@@ -9,7 +9,7 @@ interface CallOptions<T> {
     j: (reason?: any) => void;
 }
 
-class Call<T> {
+export class Call<T> {
     public id: string;
     public name: string;
     public r: (value: T) => void;
@@ -24,13 +24,13 @@ class Call<T> {
     }
 }
 
-interface CallMessageOptions {
+export interface CallMessageOptions {
     id: string;
     name: string;
     args: Array<unknown>;
 }
 
-class CallMessage {
+export class CallMessage {
     public type: string;
     public id: string;
     public name: string;
@@ -44,13 +44,13 @@ class CallMessage {
     }
 }
 
-interface ResultMessageOptions {
+export interface ResultMessageOptions {
     id: string;
     value?: unknown;
     error?: { [key: string]: unknown };
 }
 
-class ResultMessage {
+export class ResultMessage {
     public type: string;
     public id: string;
     public value?: unknown;
