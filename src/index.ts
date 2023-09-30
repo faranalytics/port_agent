@@ -129,6 +129,7 @@ export class Agent {
             else if (message.type == 'ResultMessage') {
                 for (const call of this.calls) {
                     if (call.id === message.id) {
+                        this.calls.delete(call);
                         if (message.error) {
                             const error: { [key: string]: unknown } = new Error() as unknown as { [key: string]: unknown };
                             for (const [key, value] of Object.entries<unknown>(message.error)) {
