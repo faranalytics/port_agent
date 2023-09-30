@@ -269,7 +269,7 @@ Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]:
   operator: 'notStrictEqual'
 }
 Exit code: 1
-Seriously, my thread ID is 1.
+Seriously, the worker's thread ID was 1.
 ```
 
 ### Run the Example
