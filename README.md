@@ -108,9 +108,9 @@ import { Agent } from 'port_agent';
 
 if (isMainThread) { // This is the main thread.
     void (async () => {
+        const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
+        const agent = new Agent(worker); // (2)
         try {
-            const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
-            const agent = new Agent(worker); // (2)
             const greeting = await agent.call('hello_world', 'another'); // (3)
             console.log(greeting); // (6)
         }
