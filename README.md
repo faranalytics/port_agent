@@ -134,6 +134,9 @@ The example should log to the console:
 ```bash
 Hello, another world!
 ```
+
+Please see the [Simple Example](https://github.com/faranalytics/socketnaut/tree/main/examples/simple) for a working implementation.
+
 ### A Test
 
 In this test you will:
