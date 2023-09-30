@@ -137,30 +137,30 @@ Hello, another world!
 
 Please see the [Simple Example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
 
-### A Test
+### Test
 
 In this test you will:
 
 1. Instantiate a worker thread.
-2. Instantiate an Agent in the main thread.
-3. Use the Agent to call the `hello_world` function and await resolution.
+2. Instantiate an `Agent` in the main thread.
+3. Use the `Agent` to call the `hello_world` function and await resolution.
     - At this point the `hello_world` function *has not* yet been registered in the worker thread.  The function will be called once it is registered.
 4. Wait for the worker to come online.
-5. Instantiate an Agent in the worker thread.
-6. Use the Agent to register the `hello_world` function in the worker.
-7. Use the Agent to register the `a_reasonable_assertion` function in the worker.
-8. Use the Agent to call a `magic` function in the main thread *that is not yet registered*.
-9. Use the Agent to call the function registered as `hello_world` and await resolution.
+5. Instantiate an `Agent` in the worker thread.
+6. Use the `Agent` to register the `hello_world` function in the worker.
+7. Use the `Agent` to register the `a_reasonable_assertion` function in the worker.
+8. Use the `Agent` to call a `magic` function in the main thread *that is not yet registered*.
+9. Use the `Agent` to call the function registered as `hello_world` and await resolution.
 10. Resolve (3) and log the return value.
 11. Resolve (8) and log the return value.
-12. Use the Agent to call the function registered as `a_reasonable_assertion` and await resolution.
+12. Use the `Agent` to call the function registered as `a_reasonable_assertion` and await resolution.
 13. Resolve (11) and catch the Error and log the stack trace in the main thread.
     - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the worker thread.
 14. Terminate the worker thread asynchronously.
 15. Await abends.
 16. The worker thread exited; hence, log the exit code.
     - If an unhandled exception had occurred in the worker thread it would have been handled accordingly.
-17. Use the Agent to register a `magic` function in the main thread and log the long disposed thread's ID.
+17. Use the `Agent` to register a `magic` function in the main thread and log the long disposed thread's ID.
 
 Please see the comments in the code that specify each of the steps above.  The output of the test is printed below.
 
