@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.10] - 2023-09-29
+### Fixed
+- Delete rejected calls. 
+- Throw when awaiting an exited thread.
+### Changed
+- Add simple example.
+- Improve documentation.
+- Export auxiliary classes and interfaces.
+
 ## [1.2.9] - 2023-09-28
 ### Removed
 - Remove dist.
