@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.2.10] - 2023-09-29
+## [1.2.11] - 2023-09-30
 ### Fixed
 - Delete rejected calls. 
 - Throw when awaiting an exited thread.
