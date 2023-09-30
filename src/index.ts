@@ -183,10 +183,6 @@ export class Agent {
         });
     }
 
-    protected deleteCallReject<T>(call: Call<T>,) {
-        this.calls.delete(call);
-    }
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public register(name: string, fn: (...args: Array<any>) => any): void {
         this.registrar.set(name, fn);
