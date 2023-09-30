@@ -118,6 +118,8 @@ Please see the comments in the code that specify each of the steps above.  The o
 
 `./tests/test/index.ts`
 ```ts
+/* eslint-disable no-inner-declarations */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Worker, isMainThread, parentPort, threadId } from 'node:worker_threads';
 import { fileURLToPath } from 'node:url';
 import { strict as assert } from 'node:assert';
@@ -130,7 +132,7 @@ if (isMainThread) { // This is the main thread.
         const agent = new Agent(worker); // (2)
 
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        worker.on('online', async () => { // (4)
+        worker.on('online', /*(4)*/ async () => {
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another'); // (9)
 
