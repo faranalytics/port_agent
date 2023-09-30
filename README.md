@@ -166,8 +166,6 @@ Please see the comments in the code that specify each of the steps above.  The o
 
 `./tests/test/index.ts`
 ```ts
-/* eslint-disable no-inner-declarations */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Worker, isMainThread, parentPort, threadId } from 'node:worker_threads';
 import { fileURLToPath } from 'node:url';
 import { strict as assert } from 'node:assert';
@@ -179,7 +177,6 @@ if (isMainThread) { // This is the main thread.
         const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
         const agent = new Agent(worker); // (2)
 
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         worker.on('online', /*(4)*/ async () => {
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another'); // (9)
@@ -195,7 +192,6 @@ if (isMainThread) { // This is the main thread.
 
                 void worker.terminate(); // (14)
 
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 setTimeout(async () => {
                     try {
                         await agent.call<string>('hello_world', 'no more...'); // (15)
@@ -238,16 +234,21 @@ if (isMainThread) { // This is the main thread.
     }
 
     if (parentPort) {
-        const agent = new Agent(parentPort); // (5)
+        try {
+            const agent = new Agent(parentPort); // (5)
 
-        agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
-
-        // This will throw in the main thread.
-        agent.register('a_reasonable_assertion', callAFunction); // (7).
-
-        const result = await agent.call('magic', threadId); // (8)
+            agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
+    
+            // This will throw in the main thread.
+            agent.register('a_reasonable_assertion', callAFunction); // (7).
+    
+            await agent.call<void>('magic', threadId); // (8)
+        }
+        catch(err) {
+            console.error(err);
+        }
     }
-} 
+}
 ```
 
 This test should log to the console something that looks similar to this:

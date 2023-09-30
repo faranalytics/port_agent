@@ -78,7 +78,7 @@ if (isMainThread) { // This is the main thread.
             // This will throw in the main thread.
             agent.register('a_reasonable_assertion', callAFunction); // (7).
     
-            const result = await agent.call('magic', threadId); // (8)
+            await agent.call<void>('magic', threadId); // (8)
         }
         catch(err) {
             console.error(err);
