@@ -42,7 +42,7 @@ if (isMainThread) { // This is the main thread.
                     }
 
                     // I wouldn't call this magic, but it's worth considering nonetheless; this is a *very* late binding registrant.
-                    agent.register('magic', (value: number): void => console.log(`Seriously, my thread ID is ${value}.`)); // (17)
+                    agent.register('magic', (value: number): void => console.log(`Seriously, the worker's thread ID was ${value}.`)); // (17)
 
                 }, 4);
             }
