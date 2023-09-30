@@ -8,6 +8,7 @@
 !/*.*
 !/examples
 !/examples/simple
+!/examples/simple/*.*
 !/tests
 !/tests/test
 !/tests/test/*
