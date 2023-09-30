@@ -1,6 +1,6 @@
 /* eslint-disable no-inner-declarations */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Worker, isMainThread, parentPort } from 'node:worker_threads';
+import { Worker, isMainThread, parentPort, threadId } from 'node:worker_threads';
 import { fileURLToPath } from 'node:url';
 import { strict as assert } from 'node:assert';
 import { Agent } from 'port_agent';
@@ -14,37 +14,49 @@ if (isMainThread) { // This is the main thread.
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         worker.on('online', async () => { // (4)
             try {
-                const greeting = await agent.call<string>('hello_world', 'again, another'); // (8)
+                const greeting = await agent.call<string>('hello_world', 'again, another'); // (9)
 
-                console.log(greeting); // (10)
+                console.log(greeting); // (11)
 
-                await agent.call('a_reasonable_assertion', 'To err is Human.'); // (11)
+                await agent.call('a_reasonable_assertion', 'To err is Human.'); // (12)
             }
             catch (err) {
-                console.error(`Now, back in the main thread, we will handle the`, err); // (12)
+                console.error(`Now, back in the main thread, we will handle the`, err); // (13)
             }
             finally {
 
-                void worker.terminate(); // (13)
+                void worker.terminate(); // (14)
 
-                try {
-                    await agent.call<string>('hello_world', 'no more...'); // (14)
-                }
-                catch (err) {
-                    if (err instanceof Error) {
-                        console.error(err);
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                setTimeout(async () => {
+                    try {
+                        await agent.call<string>('hello_world', 'no more...'); // (15)
                     }
-                    else if (typeof err == 'number') {
-                        console.log(`Exit code: ${err.toString()}`); // (15)
+                    catch (err) {
+                        if (err instanceof Error) {
+                            console.error(err);
+                        }
+                        else if (typeof err == 'number') {
+                            console.log(`Exit code: ${err.toString()}`); // (16)
+                        }
                     }
-                }
+
+                    // I wouldn't call this magic, but it's worth considering nonetheless; this is a *very* late binding registrant.
+                    agent.register('magic', (value: number): void => console.log(`Seriously, my thread ID is ${value}.`)); // (17)
+
+                }, 4);
             }
         });
 
-        // This call will be invoked once the `hello_world` function has been bound in the worker.
-        const greeting = await agent.call<string>('hello_world', 'another'); // (3)
+        try {
+            // This call will be invoked once the `hello_world` function has been bound in the worker.
+            const greeting = await agent.call<string>('hello_world', 'another'); // (3)
 
-        console.log(greeting); // (9)
+            console.log(greeting); // (10)
+        }
+        catch (err) {
+            console.error(err);
+        }
     })();
 } else { // This is a worker thread.
 
@@ -62,7 +74,9 @@ if (isMainThread) { // This is the main thread.
 
         agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
 
-        // This will throw in the main thread
+        // This will throw in the main thread.
         agent.register('a_reasonable_assertion', callAFunction); // (7).
+
+        const result = await agent.call('magic', threadId); // (8)
     }
 } 

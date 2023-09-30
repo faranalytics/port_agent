@@ -101,71 +101,85 @@ In this example you will:
 5. Instantiate an Agent in the worker thread.
 6. Use the Agent to register the `hello_world` function in the worker.
 7. Use the Agent to register the `a_reasonable_assertion` function in the worker.
-8. Use the Agent to call the function registered as `hello_world` and await resolution.
-9. Resolve (3) and log the return value.
-10. Resolve (8) and log the return value.
-11. Use the Agent to call the function registered as `a_reasonable_assertion` and await resolution.
-12. Resolve (11) and catch the Error and log the stack trace in the main thread.
+8. Use the Agent to call a `magic` function in the main thread *that is not yet registered*.
+9. Use the Agent to call the function registered as `hello_world` and await resolution.
+10. Resolve (3) and log the return value.
+11. Resolve (8) and log the return value.
+12. Use the Agent to call the function registered as `a_reasonable_assertion` and await resolution.
+13. Resolve (11) and catch the Error and log the stack trace in the main thread.
     - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the worker thread.
-13. Terminate the worker thread asynchronously.
-14. Await abends.
-15. The worker thread exited; hence, log the exit code.
+14. Terminate the worker thread asynchronously.
+15. Await abends.
+16. The worker thread exited; hence, log the exit code.
     - If an unhandled exception had occurred in the worker thread it would have been handled accordingly.
+17. Use the Agent to register a `magic` function in the main thread and log the long disposed thread's ID.
 
 Please see the comments in the code that specify each of the steps above.  The output of the test is printed below.
 
 `./tests/test/index.ts`
 ```ts
-import { Worker, isMainThread, parentPort } from 'node:worker_threads';
+import { Worker, isMainThread, parentPort, threadId } from 'node:worker_threads';
 import { fileURLToPath } from 'node:url';
 import { strict as assert } from 'node:assert';
 import { Agent } from 'port_agent';
 
-if (isMainThread) { // This is the Main Thread.
+if (isMainThread) { // This is the main thread.
     void (async () => {
 
         const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
         const agent = new Agent(worker); // (2)
 
-        worker.on('online', /*(4)*/ async () => { 
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        worker.on('online', async () => { // (4)
             try {
-                const greeting = await agent.call<string>('hello_world', 'again, another'); // (8)
+                const greeting = await agent.call<string>('hello_world', 'again, another'); // (9)
 
-                console.log(greeting); // (10)
+                console.log(greeting); // (11)
 
-                await agent.call('a_reasonable_assertion', 'To err is Human.'); // (11)
+                await agent.call('a_reasonable_assertion', 'To err is Human.'); // (12)
             }
             catch (err) {
-                console.error(`Now, back in the Main Thread, we will handle the`, err); // (12)
+                console.error(`Now, back in the main thread, we will handle the`, err); // (13)
             }
             finally {
 
-                void worker.terminate(); // (13)
+                void worker.terminate(); // (14)
 
-                try {
-                    await agent.call<string>('hello_world', 'no more...'); // (14)
-                }
-                catch (err) {
-                    if (err instanceof Error) {
-                        console.error(err);
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                setTimeout(async () => {
+                    try {
+                        await agent.call<string>('hello_world', 'no more...'); // (15)
                     }
-                    else if (typeof err == 'number') {
-                        console.log(`Exit code: ${err.toString()}`); // (15)
+                    catch (err) {
+                        if (err instanceof Error) {
+                            console.error(err);
+                        }
+                        else if (typeof err == 'number') {
+                            console.log(`Exit code: ${err.toString()}`); // (16)
+                        }
                     }
-                }
+
+                    // I wouldn't call this magic, but it's worth considering nonetheless; this is a *very* late binding registrant.
+                    agent.register('magic', (value: number): void => console.log(`Seriously, my thread ID is ${value}.`)); // (17)
+
+                }, 4);
             }
         });
 
-        // The `hello_world` function call will be invoked in the worker thread once the function is registered.
-        const greeting = await agent.call<string>('hello_world', 'another'); // (3)
+        try {
+            // This call will be invoked once the `hello_world` function has been bound in the worker.
+            const greeting = await agent.call<string>('hello_world', 'another'); // (3)
 
-        console.log(greeting); // (9)
+            console.log(greeting); // (10)
+        }
+        catch (err) {
+            console.error(err);
+        }
     })();
-} else { // This is a worker Thread.
+} else { // This is a worker thread.
 
     function nowThrowAnError(message: string) {
-
-        // This *would* seem reasonable, no?...
+        // This seems reasonable...
         assert.notEqual(typeof new Object(), typeof null, message);
     }
 
@@ -178,8 +192,10 @@ if (isMainThread) { // This is the Main Thread.
 
         agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
 
-        // This will throw in the Main thread
+        // This will throw in the main thread.
         agent.register('a_reasonable_assertion', callAFunction); // (7).
+
+        const result = await agent.call('magic', threadId); // (8)
     }
 } 
 ```
@@ -203,6 +219,7 @@ Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]:
   operator: 'notStrictEqual'
 }
 Exit code: 1
+Seriously, my thread ID is 1.
 ```
 
 ### Run the Example

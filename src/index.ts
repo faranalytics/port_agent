@@ -72,6 +72,7 @@ export class Agent {
     public messages: Set<CallMessage>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public registrar: Map<string, (...args: Array<any>) => any>;
+    public online?: Promise<unknown>;
 
     constructor(port: threads.MessagePort | threads.Worker) {
 
@@ -84,15 +85,28 @@ export class Agent {
 
         if (port instanceof threads.Worker) {
             this.port.once('error', (err: Error) => {
+                this.online = Promise.reject<Error>(err);
+                this.online.catch<Error>((reason: Error) => reason);
                 for (const call of this.calls) {
+                    this.calls.delete(call);
                     call.j(err);
                 }
             });
 
             this.port.once('exit', (exitCode: number) => {
+                this.online = Promise.reject<Error>(exitCode);
+                this.online.catch<number>((reason: number) => reason);
                 for (const call of this.calls) {
+                    this.calls.delete(call);
                     call.j(exitCode);
                 }
+            });
+
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            this.online = new Promise<void>((r, j) => {
+                this.port.once('online', () => {
+                    r();
+                });
             });
         }
 
@@ -158,6 +172,7 @@ export class Agent {
     }
 
     public async call<T>(name: string, ...args: Array<unknown>): Promise<T> {
+        await this.online;
         return new Promise<T>((r, j) => {
             const id = randomUUID();
             this.calls.add(new Call<T>({ id, name, r, j }));
@@ -165,6 +180,10 @@ export class Agent {
             this.port.postMessage(new CallMessage({ id, name, args }));
             this.port.removeListener('messageerror', j);
         });
+    }
+
+    protected deleteCallReject<T>(call: Call<T>,) {
+        this.calls.delete(call);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
