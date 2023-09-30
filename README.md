@@ -135,7 +135,7 @@ The example should log to the console:
 Hello, another world!
 ```
 
-Please see the [Simple Example](https://github.com/faranalytics/socketnaut/tree/main/examples/simple) for a working implementation.
+Please see the [Simple Example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
 
 ### A Test
 
