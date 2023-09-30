@@ -70,13 +70,18 @@ if (isMainThread) { // This is the main thread.
     }
 
     if (parentPort) {
-        const agent = new Agent(parentPort); // (5)
+        try {
+            const agent = new Agent(parentPort); // (5)
 
-        agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
-
-        // This will throw in the main thread.
-        agent.register('a_reasonable_assertion', callAFunction); // (7).
-
-        const result = await agent.call('magic', threadId); // (8)
+            agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
+    
+            // This will throw in the main thread.
+            agent.register('a_reasonable_assertion', callAFunction); // (7).
+    
+            const result = await agent.call('magic', threadId); // (8)
+        }
+        catch(err) {
+            console.error(err);
+        }
     }
 } 
