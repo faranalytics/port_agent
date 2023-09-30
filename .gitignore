@@ -11,7 +11,7 @@
 !/examples/simple/*.*
 !/tests
 !/tests/test
-!/tests/test/*
+!/tests/test/*.*
 !/tests/test/src
 !/tests/test/src/**/*
 !CHANGELOG.md
