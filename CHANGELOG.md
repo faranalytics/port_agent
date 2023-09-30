@@ -4,6 +4,7 @@
 ### Fixed
 - Delete rejected calls. 
 - Throw when awaiting an exited thread.
+- Fix .gitignore directives.
 ### Changed
 - Add simple example.
 - Improve documentation.
