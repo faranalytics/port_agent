@@ -8,7 +8,7 @@
 !/*.*
 !/examples
 !/examples/simple
-!/examples/simple/*
+!/examples/simple/*.{js,json}
 !/tests
 !/tests/test
 !/tests/test/*
