@@ -19,7 +19,7 @@ if (isMainThread) { // This is the main thread.
             console.error(err); // (12)
         }
         finally {
-            worker.terminate();
+            worker.terminate(); // (13)
         }
     })();
 }

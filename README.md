@@ -102,10 +102,11 @@ In this example you will:
 6. Use the `Agent` in order to register a function named `hello_word` to handle calls to the `hello_world` function.
 7. Use the `Agent` in order to register a function named `add` that will return the sum of two operands.
 8. Resolve (3) and log the `greeting` to the console.
-9. Use the `Agent` to await a call to the `add` function.
+9. Use the `Agent` to await a call to the function named `add`.
 10. Resolve (9) and log the `result` to the console.
-11. Use the `Agent` to await a call to the `abend` function.
+11. Use the `Agent` to await a call to the function named `abend`.
 12. Catch the `Error` from (11) and log the stack trace to the console.
+13. Terminate the thread.
 
 `examples/simple/index.js`
 ```js
@@ -130,7 +131,7 @@ if (isMainThread) { // This is the main thread.
             console.error(err); // (12)
         }
         finally {
-            worker.terminate();
+            worker.terminate(); // (13)
         }
     })();
 }
