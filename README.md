@@ -205,7 +205,7 @@ if (isMainThread) { // This is the main thread.
                         }
                     }
 
-                    // I wouldn't call this magic, but it's worth considering nonetheless; this is a *very* late binding registrant.
+                    // I wouldn't call this *magic*, but it's worth considering nonetheless; this is a *very* late binding registrant.
                     agent.register('magic', (value: number): void => console.log(`Seriously, the worker's thread ID was ${value}.`)); // (17)
 
                 }, 4);
@@ -248,7 +248,7 @@ if (isMainThread) { // This is the main thread.
             console.error(err);
         }
     }
-}
+} 
 ```
 
 This test should log to the console something that looks similar to this:
