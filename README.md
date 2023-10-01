@@ -85,6 +85,7 @@ agent.register('hello_world', (value: string): string => `Hello, ${value} world!
 
 ```ts
 const greeting = await agent.call<string>('hello_world', 'happy');
+console.log(greeting); // Hello, happy world!
 ```
 
 ## Examples
