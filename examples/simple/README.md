@@ -45,7 +45,7 @@ git clone https://github.com/faranalytics/port_agent.git
 ```
 ### Change directory into the relevant example directory.
 ```bash
-cd socketnaut/examples/simple
+cd port_agent/examples/simple
 ```
 ### Install the example dependencies.
 ```bash
