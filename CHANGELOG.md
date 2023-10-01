@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.13] - 2023-10-01
+### Changed
+- Improve simple example.
+- Improve documentation.
+
 ## [1.2.12] - 2023-09-30
 ### Changed
 - Changed access modifier on _online property.
