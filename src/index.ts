@@ -72,7 +72,7 @@ export class Agent {
     public messages: Set<CallMessage>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public registrar: Map<string, (...args: Array<any>) => any>;
-    private _online: Promise<unknown> = Promise.resolve();
+    protected _online: Promise<unknown> = Promise.resolve();
 
     constructor(port: threads.MessagePort | threads.Worker) {
 
