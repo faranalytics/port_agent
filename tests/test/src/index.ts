@@ -25,7 +25,7 @@ if (isMainThread) { // This is the main thread.
             }
             finally {
 
-                void worker.terminate(); // (14)
+                worker.terminate().catch(() => { }); // (14)
 
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 setTimeout(async () => {
@@ -41,7 +41,8 @@ if (isMainThread) { // This is the main thread.
                         }
                     }
 
-                    agent.register('very_late_binding', (value: number): void => console.log(`The worker's thread ID was ${value}.`)); // (17)
+                    // The worker thread is terminated; however, the call to the `very_late_binding` function in the worker thread is still outstanding.
+                    agent.register('very_late_binding', (value: number): void => console.log(`The worker's thread Id was ${value}.`)); // (17)
 
                 }, 4);
             }
@@ -73,13 +74,13 @@ if (isMainThread) { // This is the main thread.
             const agent = new Agent(parentPort); // (5)
 
             agent.register('hello_world', (value: string): string => `Hello, ${value} world!`); // (6)
-    
+
             // This will throw in the main thread.
             agent.register('a_reasonable_assertion', callAFunction); // (7).
-    
+
             await agent.call<void>('very_late_binding', threadId); // (8)
         }
-        catch(err) {
+        catch (err) {
             console.error(err);
         }
     }

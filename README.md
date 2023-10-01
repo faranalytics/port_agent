@@ -160,7 +160,7 @@ In this test you will:
 15. Await abends.
 16. The worker thread exited; hence, log the exit code.
     - If an unhandled exception had occurred in the worker thread it would have been handled accordingly.
-17. Use the `Agent` to register a `very_late_binding` function in the main thread and log the long disposed thread's ID.
+17. Use the `Agent` to register a `very_late_binding` function in the main thread and log the long disposed thread's Id.
 
 Please see the comments in the code that specify each of the steps above.  The output of the test is printed below.
 
@@ -190,7 +190,7 @@ if (isMainThread) { // This is the main thread.
             }
             finally {
 
-                void worker.terminate(); // (14)
+                worker.terminate().catch(() => { }); // (14)
 
                 setTimeout(async () => {
                     try {
@@ -205,7 +205,8 @@ if (isMainThread) { // This is the main thread.
                         }
                     }
 
-                    agent.register('very_late_binding', (value: number): void => console.log(`The worker's thread ID was ${value}.`)); // (17)
+                    // The worker thread is terminated; however, the call to the `very_late_binding` function in the worker thread is still outstanding.
+                    agent.register('very_late_binding', (value: number): void => console.log(`The worker's thread Id was ${value}.`)); // (17)
 
                 }, 4);
             }
@@ -269,7 +270,7 @@ Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]:
   operator: 'notStrictEqual'
 }
 Exit code: 1
-The worker's thread ID was 1.
+The worker's thread Id was 1.
 ```
 
 #### Run the Test
