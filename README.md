@@ -159,7 +159,7 @@ In this test you will:
 14. Terminate the worker thread asynchronously.
 15. Await abends.
 16. The worker thread exited; hence, log the exit code.
-    - If an unhandled exception had occurred in the worker thread it would have been handled accordingly.
+    - If an unhandled exception had occurred in the worker thread, it would have been handled accordingly.
 17. Use the `Agent` to register a `very_late_binding` function in the main thread and log the long disposed thread's Id.
 
 Please see the comments in the code that specify each of the steps above.  The output of the test is printed below.
