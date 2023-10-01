@@ -39,7 +39,7 @@ else { // This is a worker thread.
 ```
 ## Instructions
 
-### Clone the Socketnaut repo.
+### Clone the Port Agent repo.
 ```bash
 git clone https://github.com/faranalytics/port_agent.git
 ```
