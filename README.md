@@ -149,7 +149,7 @@ In this test you will:
 5. Instantiate an `Agent` in the worker thread.
 6. Use the `Agent` to register the `hello_world` function in the worker.
 7. Use the `Agent` to register the `a_reasonable_assertion` function in the worker.
-8. Use the `Agent` to call a `magic` function in the main thread *that is not yet registered*.
+8. Use the `Agent` to call a `very_late_binding` function in the main thread *that is not yet registered*.
 9. Use the `Agent` to call the function registered as `hello_world` and await resolution.
 10. Resolve (3) and log the return value.
 11. Resolve (8) and log the return value.
@@ -160,7 +160,7 @@ In this test you will:
 15. Await abends.
 16. The worker thread exited; hence, log the exit code.
     - If an unhandled exception had occurred in the worker thread it would have been handled accordingly.
-17. Use the `Agent` to register a `magic` function in the main thread and log the long disposed thread's ID.
+17. Use the `Agent` to register a `very_late_binding` function in the main thread and log the long disposed thread's ID.
 
 Please see the comments in the code that specify each of the steps above.  The output of the test is printed below.
 
@@ -205,8 +205,7 @@ if (isMainThread) { // This is the main thread.
                         }
                     }
 
-                    // I wouldn't call this *magic*, but it's worth considering nonetheless; this is a *very* late binding registrant.
-                    agent.register('magic', (value: number): void => console.log(`Seriously, the worker's thread ID was ${value}.`)); // (17)
+                    agent.register('very_late_binding', (value: number): void => console.log(`The worker's thread ID was ${value}.`)); // (17)
 
                 }, 4);
             }
@@ -242,7 +241,7 @@ if (isMainThread) { // This is the main thread.
             // This will throw in the main thread.
             agent.register('a_reasonable_assertion', callAFunction); // (7).
     
-            await agent.call<void>('magic', threadId); // (8)
+            await agent.call<void>('very_late_binding', threadId); // (8)
         }
         catch(err) {
             console.error(err);
@@ -270,7 +269,7 @@ Now, back in the Main Thread, we will handle the AssertionError [ERR_ASSERTION]:
   operator: 'notStrictEqual'
 }
 Exit code: 1
-Seriously, the worker's thread ID was 1.
+The worker's thread ID was 1.
 ```
 
 #### Run the Test

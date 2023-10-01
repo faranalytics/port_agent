@@ -41,8 +41,7 @@ if (isMainThread) { // This is the main thread.
                         }
                     }
 
-                    // I wouldn't call this *magic*, but it's worth considering nonetheless; this is a *very* late binding registrant.
-                    agent.register('magic', (value: number): void => console.log(`Seriously, the worker's thread ID was ${value}.`)); // (17)
+                    agent.register('very_late_binding', (value: number): void => console.log(`The worker's thread ID was ${value}.`)); // (17)
 
                 }, 4);
             }
@@ -78,7 +77,7 @@ if (isMainThread) { // This is the main thread.
             // This will throw in the main thread.
             agent.register('a_reasonable_assertion', callAFunction); // (7).
     
-            await agent.call<void>('magic', threadId); // (8)
+            await agent.call<void>('very_late_binding', threadId); // (8)
         }
         catch(err) {
             console.error(err);
