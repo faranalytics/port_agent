@@ -1,12 +1,20 @@
 # Changelog
 
+## [1.2.12] - 2023-09-30
+### Changed
+- Changed access modifier on _online property.
+- Changed default value of _online property to resolved Promise.
+- Improve documentation.
+- Improve examples.
+
 ## [1.2.11] - 2023-09-30
+### Added
+- Add simple example.
 ### Fixed
 - Delete rejected calls. 
 - Throw when awaiting an exited thread.
 - Fix .gitignore directives.
 ### Changed
-- Add simple example.
 - Improve documentation.
 - Export auxiliary classes and interfaces.
 
