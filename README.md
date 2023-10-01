@@ -154,7 +154,7 @@ In this test you will:
 10. Resolve (3) and log the return value.
 11. Resolve (8) and log the return value.
 12. Use the `Agent` to call the function registered as `a_reasonable_assertion` and await resolution.
-13. Resolve (11) and catch the Error and log the stack trace in the main thread.
+13. Resolve (12) and catch the Error and log the stack trace in the main thread.
     - The Error was marshalled from the Error produced by the reasonable assertion that was made in the `nowThrowAnError` function in the worker thread.
 14. Terminate the worker thread asynchronously.
 15. Await abends.
