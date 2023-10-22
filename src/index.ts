@@ -67,7 +67,7 @@ export class Agent {
 
     public port: threads.MessagePort | threads.Worker;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public calls: Set<Call<any>>;
+    public callRegistrar: Map<number, Call<any>>;
     public callMessages: Set<CallMessage>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public callableRegistrar: Map<string, (...args: Array<any>) => any>;
@@ -79,7 +79,7 @@ export class Agent {
         this.port = port;
         this.callID = 0;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.calls = new Set<Call<any>>();
+        this.callRegistrar = new Map<number, Call<any>>();
         this.callMessages = new Set<CallMessage>();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.callableRegistrar = new Map<string, (...args: Array<any>) => any>();
@@ -88,8 +88,8 @@ export class Agent {
             this.port.once('error', (err: Error) => {
                 this._online = Promise.reject<Error>(err);
                 this._online.catch<Error>((reason: Error) => reason);
-                for (const call of this.calls) {
-                    this.calls.delete(call);
+                for (const [index, call] of this.callRegistrar.entries()) {
+                    this.callRegistrar.delete(index);
                     call.j(err);
                 }
             });
@@ -97,8 +97,8 @@ export class Agent {
             this.port.once('exit', (exitCode: number) => {
                 this._online = Promise.reject<Error>(exitCode);
                 this._online.catch<number>((reason: number) => reason);
-                for (const call of this.calls) {
-                    this.calls.delete(call);
+                for (const [index, call] of this.callRegistrar.entries()) {
+                    this.callRegistrar.delete(index);
                     call.j(exitCode);
                 }
             });
@@ -128,19 +128,18 @@ export class Agent {
                 }
             }
             else if (message.type == 'ResultMessage') {
-                for (const call of this.calls) {
-                    if (call.id === message.id) {
-                        this.calls.delete(call);
-                        if (message.error) {
-                            const error: { [key: string]: unknown } = new Error() as unknown as { [key: string]: unknown };
-                            for (const [key, value] of Object.entries<unknown>(message.error)) {
-                                error[key] = value;
-                            }
-                            call.j(error);
+                const call = this.callRegistrar.get(message.id);
+                this.callRegistrar.delete(message.id);
+                if (call) {
+                    if (message.error) {
+                        const error: { [key: string]: unknown } = new Error() as unknown as { [key: string]: unknown };
+                        for (const [key, value] of Object.entries<unknown>(message.error)) {
+                            error[key] = value;
                         }
-                        else {
-                            call.r(message.value);
-                        }
+                        call.j(error);
+                    }
+                    else {
+                        call.r(message.value);
                     }
                 }
             }
@@ -177,7 +176,7 @@ export class Agent {
         await this._online;
         return new Promise<T>((r, j) => {
             const id = this.callID++;
-            this.calls.add(new Call<T>({ id, name, r, j }));
+            this.callRegistrar.set(id, new Call<T>({ id, name, r, j }));
             this.port.once('messageerror', j);
             this.port.postMessage(new CallMessage({ id, name, args }));
             this.port.removeListener('messageerror', j);
