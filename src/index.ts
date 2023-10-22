@@ -68,9 +68,9 @@ export class Agent {
     public port: threads.MessagePort | threads.Worker;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public calls: Set<Call<any>>;
-    public messages: Set<CallMessage>;
+    public callMessages: Set<CallMessage>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public registrar: Map<string, (...args: Array<any>) => any>;
+    public callableRegistrar: Map<string, (...args: Array<any>) => any>;
     private callID: number;
     protected _online: Promise<unknown> = Promise.resolve();
 
@@ -80,9 +80,9 @@ export class Agent {
         this.callID = 0;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.calls = new Set<Call<any>>();
-        this.messages = new Set<CallMessage>();
+        this.callMessages = new Set<CallMessage>();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.registrar = new Map<string, (...args: Array<any>) => any>();
+        this.callableRegistrar = new Map<string, (...args: Array<any>) => any>();
 
         if (port instanceof threads.Worker) {
             this.port.once('error', (err: Error) => {
@@ -114,7 +114,7 @@ export class Agent {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         this.port.on('message', async (message: CallMessage & ResultMessage) => {
             if (message.type == 'CallMessage') {
-                const fn = this.registrar.get(message.name);
+                const fn = this.callableRegistrar.get(message.name);
                 if (fn) {
                     try {
                         await this.tryPost(fn, message);
@@ -124,7 +124,7 @@ export class Agent {
                     }
                 }
                 else {
-                    this.messages.add(message);
+                    this.callMessages.add(message);
                 }
             }
             else if (message.type == 'ResultMessage') {
@@ -186,15 +186,16 @@ export class Agent {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public register(name: string, fn: (...args: Array<any>) => any): void {
-        this.registrar.set(name, fn);
-        for (const message of this.messages) {
-            if (message.name === name) {
-                void this.tryPost(fn, message);
+        this.callableRegistrar.set(name, fn);
+        for (const callMessage of [...this.callMessages]) {
+            if (callMessage.name === name) {
+                this.callMessages.delete(callMessage);
+                void this.tryPost(fn, callMessage);
             }
         }
     }
 
     public deregister(name: string): void {
-        this.registrar.delete(name);
+        this.callableRegistrar.delete(name);
     }
 }
