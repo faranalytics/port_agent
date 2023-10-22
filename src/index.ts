@@ -68,7 +68,7 @@ export class Agent {
     public port: threads.MessagePort | threads.Worker;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public callRegistrar: Map<number, Call<any>>;
-    public callMessages: Set<CallMessage>;
+    public cachedCallMessages: Set<CallMessage>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public callableRegistrar: Map<string, (...args: Array<any>) => any>;
     private callID: number;
@@ -80,7 +80,7 @@ export class Agent {
         this.callID = 0;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.callRegistrar = new Map<number, Call<any>>();
-        this.callMessages = new Set<CallMessage>();
+        this.cachedCallMessages = new Set<CallMessage>();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.callableRegistrar = new Map<string, (...args: Array<any>) => any>();
 
@@ -124,7 +124,7 @@ export class Agent {
                     }
                 }
                 else {
-                    this.callMessages.add(message);
+                    this.cachedCallMessages.add(message);
                 }
             }
             else if (message.type == 'ResultMessage') {
@@ -186,10 +186,10 @@ export class Agent {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public register(name: string, fn: (...args: Array<any>) => any): void {
         this.callableRegistrar.set(name, fn);
-        for (const callMessage of [...this.callMessages]) {
-            if (callMessage.name === name) {
-                this.callMessages.delete(callMessage);
-                void this.tryPost(fn, callMessage);
+        for (const cachedCallMessage of [...this.cachedCallMessages]) {
+            if (cachedCallMessage.name === name) {
+                this.cachedCallMessages.delete(cachedCallMessage);
+                void this.tryPost(fn, cachedCallMessage);
             }
         }
     }
