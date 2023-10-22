@@ -1,8 +1,7 @@
 import * as threads from 'node:worker_threads';
-import { randomUUID } from 'node:crypto';
 
 export interface CallOptions<T> {
-    id: string;
+    id: number;
     name: string;
     r: (value: T) => void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,7 +9,7 @@ export interface CallOptions<T> {
 }
 
 export class Call<T> {
-    public id: string;
+    public id: number;
     public name: string;
     public r: (value: T) => void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,14 +24,14 @@ export class Call<T> {
 }
 
 export interface CallMessageOptions {
-    id: string;
+    id: number;
     name: string;
     args: Array<unknown>;
 }
 
 export class CallMessage {
     public type: string;
-    public id: string;
+    public id: number;
     public name: string;
     public args: Array<unknown>;
 
@@ -45,14 +44,14 @@ export class CallMessage {
 }
 
 export interface ResultMessageOptions {
-    id: string;
+    id: number;
     value?: unknown;
     error?: { [key: string]: unknown };
 }
 
 export class ResultMessage {
     public type: string;
-    public id: string;
+    public id: number;
     public value?: unknown;
     public error?: { [key: string]: unknown };
 
@@ -72,11 +71,13 @@ export class Agent {
     public messages: Set<CallMessage>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public registrar: Map<string, (...args: Array<any>) => any>;
+    private callID: number;
     protected _online: Promise<unknown> = Promise.resolve();
 
     constructor(port: threads.MessagePort | threads.Worker) {
 
         this.port = port;
+        this.callID = 0;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.calls = new Set<Call<any>>();
         this.messages = new Set<CallMessage>();
@@ -175,7 +176,7 @@ export class Agent {
     public async call<T>(name: string, ...args: Array<unknown>): Promise<T> {
         await this._online;
         return new Promise<T>((r, j) => {
-            const id = randomUUID();
+            const id = this.callID++;
             this.calls.add(new Call<T>({ id, name, r, j }));
             this.port.once('messageerror', j);
             this.port.postMessage(new CallMessage({ id, name, args }));
