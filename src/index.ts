@@ -72,7 +72,7 @@ export class Agent {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public callableRegistrar: Map<string, (...args: Array<any>) => any>;
     private callID: number;
-    protected _online: Promise<unknown> = Promise.resolve();
+    protected portOnline: Promise<unknown> = Promise.resolve();
 
     constructor(port: threads.MessagePort | threads.Worker) {
 
@@ -86,8 +86,8 @@ export class Agent {
 
         if (port instanceof threads.Worker) {
             this.port.once('error', (err: Error) => {
-                this._online = Promise.reject<Error>(err);
-                this._online.catch<Error>((reason: Error) => reason);
+                this.portOnline = Promise.reject<Error>(err);
+                this.portOnline.catch<Error>((reason: Error) => reason);
                 for (const [index, call] of this.callRegistrar.entries()) {
                     this.callRegistrar.delete(index);
                     call.j(err);
@@ -95,8 +95,8 @@ export class Agent {
             });
 
             this.port.once('exit', (exitCode: number) => {
-                this._online = Promise.reject<Error>(exitCode);
-                this._online.catch<number>((reason: number) => reason);
+                this.portOnline = Promise.reject<Error>(exitCode);
+                this.portOnline.catch<number>((reason: number) => reason);
                 for (const [index, call] of this.callRegistrar.entries()) {
                     this.callRegistrar.delete(index);
                     call.j(exitCode);
@@ -104,7 +104,7 @@ export class Agent {
             });
 
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            this._online = new Promise<void>((r, j) => {
+            this.portOnline = new Promise<void>((r, j) => {
                 this.port.once('online', () => {
                     r();
                 });
@@ -173,7 +173,7 @@ export class Agent {
     }
 
     public async call<T>(name: string, ...args: Array<unknown>): Promise<T> {
-        await this._online;
+        await this.portOnline;
         return new Promise<T>((r, j) => {
             const id = this.callID++;
             this.callRegistrar.set(id, new Call<T>({ id, name, r, j }));
