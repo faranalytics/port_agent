@@ -17,6 +17,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 1. [API](#api)
 2. [Usage](#usage)
 3. [Examples](#examples)
+4. [Notes](#notes)
 
 ## Concepts
 
@@ -309,3 +310,10 @@ cd port_agent
 ```bash
 npm run test
 ```
+## Notes
+
+### BroadcastChannels
+Port Agent supports one to one communication over a `MessagePort`.  `BroadcastChannel`s are not presently supported.
+
+### Support for Other Communication Medium
+Port Agent is focused on supporting communication over `MessagePort`s.  Port Agent will not support communication over other communication systems e.g., `Socket`s.
