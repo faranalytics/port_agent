@@ -315,5 +315,5 @@ npm run test
 ### BroadcastChannels
 Port Agent supports one to one communication over a `MessagePort`.  `BroadcastChannel`s are not presently supported.
 
-### Support for Other Communication Medium
-Port Agent is focused on supporting communication over `MessagePort`s.  Port Agent will not support communication over other communication systems e.g., `Socket`s.
+### Support for Other Communication Systems
+Port Agent is focused on supporting communication over `MessagePort`s.  Port Agent will not support communication over other communication systems e.g., `Socket`s, `Cluster` IPC messages.
