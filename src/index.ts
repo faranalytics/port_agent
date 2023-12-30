@@ -72,6 +72,7 @@ export class Agent {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     public callableRegistrar: Map<string, (...args: Array<any>) => any>;
     private callID: number;
+    protected isPortOnline: boolean = false;
     protected portOnline: Promise<unknown> = Promise.resolve();
 
     constructor(port: threads.MessagePort | threads.Worker) {
@@ -106,6 +107,7 @@ export class Agent {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             this.portOnline = new Promise<void>((r, j) => {
                 this.port.once('online', () => {
+                    this.isPortOnline = true;
                     r();
                 });
             });
@@ -173,7 +175,9 @@ export class Agent {
     }
 
     public async call<T>(name: string, ...args: Array<unknown>): Promise<T> {
-        await this.portOnline;
+        if (!this.isPortOnline) {
+            await this.portOnline;
+        }
         return new Promise<T>((r, j) => {
             const id = this.callID++;
             this.callRegistrar.set(id, new Call<T>({ id, name, r, j }));
