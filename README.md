@@ -16,7 +16,6 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 - [Concepts](#concepts)
     - [The Agent.](#the-agent)
 - [API](#api)
-    - [The Agent class.](#the-agent-class)
 - [Usage](#usage)
     - [How to create an Agent instance.](#how-to-create-an-agent-instance)
 - [Examples](#examples)
