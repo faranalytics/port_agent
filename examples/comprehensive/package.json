@@ -12,7 +12,7 @@
   "author": "FAR",
   "license": "MIT",
   "dependencies": {
-    "port_agent": "file:../.."
+    "port_agent": "^1.4.0"
   },
   "type": "module",
   "devDependencies": {
