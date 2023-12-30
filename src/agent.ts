@@ -66,7 +66,6 @@ export class Agent {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             this.portOnline = new Promise<void>((r, j) => {
                 this.port.once('online', () => {
-                    console.log('online 1');
                     r();
                 });
             });
@@ -139,7 +138,6 @@ export class Agent {
         // Each call must await here in order to ensure previous calls are executed prior to this one.
 
         return new Promise<T>((r, j) => {
-            console.log(args);
             const id = this.callID++;
             this.callRegistrar.set(id, new Call<T>({ id, name, r, j }));
             this.port.once('messageerror', j);

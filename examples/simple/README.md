@@ -52,19 +52,6 @@ else { // This is a worker thread.
     }
 }
 ```
-The example will log to the console something similar to this:
-
-```bash
-Hello, another world!
-2
-Error: This Error is expected, indeed.
-    at file:///port_agent/examples/simple/index.js:29:54
-    at Agent.tryPost (/port_agent/examples/simple/node_modules/port_agent/dist/index.js:145:33)
-    at MessagePort.<anonymous> (/port_agent/examples/simple/node_modules/port_agent/dist/index.js:114:36)
-    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:762:20)
-    at exports.emitMessage (node:internal/per_context/messageport:23:28)
-```
-
 ## Instructions
 
 ### Clone the Port Agent repo.
@@ -86,4 +73,11 @@ npm start
 #### Output
 ```bash
 Hello, another world!
+2
+Error: This Error is expected, indeed.
+    at file:///port_agent/examples/simple/index.js:29:54
+    at Agent.tryPost (/port_agent/examples/simple/node_modules/port_agent/dist/index.js:145:33)
+    at MessagePort.<anonymous> (/port_agent/examples/simple/node_modules/port_agent/dist/index.js:114:36)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:762:20)
+    at exports.emitMessage (node:internal/per_context/messageport:23:28)
 ```
