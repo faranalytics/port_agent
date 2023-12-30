@@ -133,7 +133,7 @@ export class Agent {
     }
 
     public async call<T>(name: string, ...args: Array<unknown>): Promise<T> {
-        
+
         await this.portOnline;
         // Each call must await here in order to ensure previous calls are executed prior to this one.
 

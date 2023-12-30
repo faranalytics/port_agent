@@ -1,5 +1,3 @@
 import { Agent } from "./agent";
 
-export {
-    Agent
-};
+export { Agent };
