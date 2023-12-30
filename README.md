@@ -14,7 +14,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 
 ## Table of Contents
 - [Concepts](#concepts)
-    - [The Agent.](#the-agent)
+    - [Agent](#agent)
 - [API](#api)
 - [Usage](#usage)
     - [How to create an Agent instance.](#how-to-create-an-agent-instance)
@@ -27,7 +27,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 
 ## Concepts
 
-### The Agent.
+### Agent
 
 An instance of an `Agent` facilitates communication across threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
 

@@ -9,7 +9,7 @@
   "author": "FAR",
   "license": "MIT",
   "dependencies": {
-    "port_agent": "^1.2.9"
+    "port_agent": "^1.4.0"
   },
   "type": "module",
   "devDependencies": {
