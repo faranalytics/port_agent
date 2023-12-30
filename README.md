@@ -69,7 +69,7 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ### How to create an `Agent` instance.
 
-#### Import Port Agent.
+#### Import the Agent class from Port Agent.
 
 ```ts
 import { Agent } from 'port_agent';
@@ -180,4 +180,4 @@ Please see the [Comprehensive example](https://github.com/faranalytics/port_agen
 Port Agent supports one to one communication over a `MessagePort`.  `BroadcastChannel`s are not presently supported.
 
 ### Support for other communication channels.
-Port Agent is strictly focused on communication over `MessagePort`s.  Port Agent will not support communication over other communication channels e.g., `Socket`s, IPC, etc.
+Port Agent is strictly focused on efficient communication over `MessagePort`s.  Port Agent will not support communication over other communication channels e.g., `Socket`s, IPC, etc.
