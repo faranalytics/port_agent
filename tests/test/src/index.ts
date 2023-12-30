@@ -6,6 +6,7 @@ import { strict as assert } from 'node:assert';
 import { Agent } from 'port_agent';
 
 if (isMainThread) { // This is the main thread.
+
     void (async () => {
 
         const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
@@ -21,7 +22,9 @@ if (isMainThread) { // This is the main thread.
                 await agent.call('a_reasonable_assertion', 'To err is Human.'); // (12)
             }
             catch (err) {
-                console.error(`Now, back in the main thread, we will handle the`, err); // (13)
+                if (err instanceof Error) {
+                    console.error(`Now, back in the main thread, we will handle the`, err); // (13)
+                }
             }
             finally {
 

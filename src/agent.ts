@@ -122,7 +122,7 @@ export class Agent {
                 if (err instanceof Error) {
                     const error: { [key: string]: unknown } = {};
                     for (const name of Object.getOwnPropertyNames(err)) {
-                        error[name] = Object.getOwnPropertyDescriptor(err as unknown as { [key: string]: unknown }, name)?.value;
+                        error[name] = (err as unknown as { [key: string]: unknown })[name];
                     }
                     this.port.postMessage(new ResultMessage({ id: message.id, error }));
                 }
