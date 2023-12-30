@@ -193,7 +193,7 @@ export class Agent {
         for (const cachedCallMessage of [...this.cachedCallMessages]) {
             if (cachedCallMessage.name === name) {
                 this.cachedCallMessages.delete(cachedCallMessage);
-                void this.tryPost(fn, cachedCallMessage);
+                this.tryPost(fn, cachedCallMessage).catch((err:Error)=>console.error(err));
             }
         }
     }
