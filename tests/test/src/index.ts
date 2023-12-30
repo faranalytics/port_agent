@@ -13,6 +13,7 @@ if (isMainThread) { // This is the main thread.
 
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         worker.on('online', /*(4)*/ async () => {
+            console.log('online 2');
             try {
                 const greeting = await agent.call<string>('hello_world', 'again, another'); // (9)
 
