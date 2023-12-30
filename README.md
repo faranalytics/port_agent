@@ -4,7 +4,7 @@ A RPC-like facility for making inter-thread function calls.
 
 ## Introduction
 
-Port Agent provides a simple and intuitive interface that makes inter-thread function calls *easy*.
+Port Agent provides a simple and intuitive interface that makes inter-thread function calls *easy*.  Please see the [Usage](#usage) or [Examples](#examples) for instructions on how to use Port Agent in your application.
 
 ### Features
 - Port Agent will marshal the return value or `Error` from the *other* thread back to the caller.
