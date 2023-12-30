@@ -69,6 +69,11 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ### How to create an `Agent` instance.
 
+#### Import Port Agent.
+
+```ts
+import { Agent } from 'port_agent';
+```
 #### You can create a new `Agent` by passing a `parentPort` or a `Worker` instance to the `Agent` constructor:
 
 In the main thread,
