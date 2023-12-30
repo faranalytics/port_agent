@@ -121,8 +121,8 @@ export class Agent {
                 this.port.once('messageerror', j);
                 if (err instanceof Error) {
                     const error: { [key: string]: unknown } = {};
-                    for (const name of Object.getOwnPropertyNames(err)) {
-                        error[name] = (err as unknown as { [key: string]: unknown })[name];
+                    for (const [name, value] of Object.entries(err)) {
+                        error[name] = value;
                     }
                     this.port.postMessage(new ResultMessage({ id: message.id, error }));
                 }
