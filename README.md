@@ -13,15 +13,22 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 - Late binding registrants will be called with previously awaited invocations. 
 
 ## Table of Contents
-1. [Concepts](#concepts)
-1. [API](#api)
-2. [Usage](#usage)
-3. [Examples](#examples)
-4. [Notes](#notes)
+- [Concepts](#concepts)
+    - [The Agent.](#the-agent)
+- [API](#api)
+    - [The Agent class.](#the-agent-class)
+- [Usage](#usage)
+    - [How to create an Agent instance.](#how-to-create-an-agent-instance)
+- [Examples](#examples)
+    - [A simple example.](#a-simple-example)
+    - [A comprehensive example.](#a-comprehensive-example)
+- [Notes](#notes)
+    - [Support for BroadcastChannels.](#support-for-broadcastchannels)
+    - [Support for other communication channels.](#support-for-other-communication-channels)
 
 ## Concepts
 
-### Agent
+### The Agent.
 
 An instance of an `Agent` facilitates communication across threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
 
@@ -31,7 +38,7 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ## API
 
-### The `Agent` Class
+### The `Agent` class.
 
 #### port_agent.Agent(port)
 - port `<threads.MessagePort>` or `<threads.Worker>` The message port.
@@ -91,7 +98,7 @@ console.log(greeting); // Hello, happy world!
 
 ## Examples
 
-### A Simple Example
+### A simple example.
 
 In this example you will:
 
@@ -160,7 +167,7 @@ Error: This Error is expected, indeed.
 
 Please see the [Simple Example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
 
-### Test
+### A comprehensive example.
 
 In this test you will:
 
@@ -312,8 +319,8 @@ npm run test
 ```
 ## Notes
 
-### BroadcastChannels
+### Support for BroadcastChannels.
 Port Agent supports one to one communication over a `MessagePort`.  `BroadcastChannel`s are not presently supported.
 
-### Support for Other Communication Systems
-Port Agent is focused on supporting communication over `MessagePort`s.  Port Agent will not support communication over other communication systems e.g., `Socket`s, `Cluster` IPC messages.
+### Support for other communication channels.
+Port Agent is focused on communication over `MessagePort`s.  Port Agent will not support communication over other communication channels e.g., `Socket`s, IPC, etc.
