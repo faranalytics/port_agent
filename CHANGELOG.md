@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0] - 2023-12-30
+### Changed
+- Improved documentation.
+- Refactor Agent and Message classes.
+### Fixed
+- Fixed Error message representation in order for stack traces to be observed.
+
 ## [1.3.0] - 2023-10-22
 ### Changed
 - The semantics of Agent properties were improved.
