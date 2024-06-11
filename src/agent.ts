@@ -23,6 +23,7 @@ export class Call<T> {
         this.j = j;
     }
 }
+
 export class Agent {
 
     public port: threads.MessagePort | threads.Worker;
