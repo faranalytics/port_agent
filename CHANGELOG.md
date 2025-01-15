@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.1] - 2024-01-14
+### Changed
+- Improved documentation.
+- Improve tests.
+
 ## [1.4.0] - 2023-12-30
 ### Changed
 - Improved documentation.
