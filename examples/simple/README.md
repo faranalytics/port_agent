@@ -1,4 +1,8 @@
-# *A Simple Example*
+# A Simple Example
+
+This example provides a simple demonstration of Port Agent's functionality.
+
+## Example
 
 In this example you will:
 
@@ -52,25 +56,35 @@ else { // This is a worker thread.
     }
 }
 ```
-## Instructions
 
-### Clone the Port Agent repo.
+### Instructions
+
+#### Clone the Port Agent repo.
+
 ```bash
 git clone https://github.com/faranalytics/port_agent.git
 ```
-### Change directory into the relevant example directory.
+
+#### Change directory into the relevant example directory.
+
 ```bash
 cd port_agent/examples/simple
 ```
-### Install the example dependencies.
+
+#### Install the example dependencies.
+
 ```bash
 npm install && npm update
 ```
-### Run the application.
+
+#### Run the application.
+
 ```bash
 npm start
 ```
-#### Output
+
+##### Output
+
 ```bash
 Hello, another world!
 2

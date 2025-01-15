@@ -1,4 +1,8 @@
-# *A comprehensive example.*
+# A Comprehensive Example
+
+This example provides a comprehensive demonstration of Port Agent's functionality.
+
+## Example
 
 In this example you will:
 
@@ -112,29 +116,39 @@ if (isMainThread) { // This is the main thread.
 } 
 ```
 
-## Instructions
+### Instructions
 
-### Clone the repository.
+#### Clone the repository.
+
 ```bash
 git clone https://github.com/faranalytics/port_agent.git
 ```
-### Change directory into the relevant example directory.
+
+#### Change directory into the relevant example directory.
+
 ```bash
 cd port_agent/examples/comprehensive
 ```
-### Install the example dependencies.
+
+#### Install the example dependencies.
+
 ```bash
 npm install && npm update
 ```
-### Build the TypeScript application.
+
+#### Build the TypeScript application.
+
 ```bash
 npm run clean:build
 ```
-### Run the application.
+
+#### Run the application.
+
 ```bash
 npm start
 ```
-#### Output
+
+##### Output
 ```bash
 Hello, another world!
 Hello, again, another world!
