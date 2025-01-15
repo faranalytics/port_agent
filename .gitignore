@@ -1,3 +1,7 @@
+tsconfig.tsbuildinfo
 dist
 node_modules
-paste.txt
+*.log
+*.log.*
+/examples/**/package-lock.json
+/tests/**/package-lock.json
