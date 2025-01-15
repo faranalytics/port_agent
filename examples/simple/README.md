@@ -4,7 +4,9 @@ This example provides a simple demonstration of Port Agent's functionality.
 
 ## Example
 
-In this example you will:
+### Procedure
+
+#### In this example you will:
 
 1. Instantiate a worker thread.
 2. Instantiate an `Agent` in the main thread.
@@ -19,6 +21,8 @@ In this example you will:
 11. Use the `Agent` to await a call to the function named `abend`.
 12. Catch the `Error` from (11) and log the stack trace to the console.
 13. Terminate the thread.
+
+### Implementation
 
 `examples/simple/index.js`
 ```js

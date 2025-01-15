@@ -4,7 +4,9 @@ This example provides a comprehensive demonstration of Port Agent's functionalit
 
 ## Example
 
-In this example you will:
+### Procedure
+
+#### In this example you will:
 
 1. Instantiate a worker thread.
 2. Instantiate an `Agent` in the main thread.
@@ -28,6 +30,8 @@ In this example you will:
 17. Use the `Agent` to register a `very_late_binding` function in the main thread and log the long disposed thread's Id.
 
 Please see the comments in the code that specify each of the steps above.  The output of the example is printed below.
+
+### Implementation
 
 `./src/index.ts`
 ```ts
@@ -149,6 +153,7 @@ npm start
 ```
 
 ##### Output
+
 ```bash
 Hello, another world!
 Hello, again, another world!
