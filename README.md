@@ -15,12 +15,12 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 ## Table of Contents
 - [Concepts](#concepts)
     - [Agent](#agent)
-- [API](#api)
 - [Usage](#usage)
     - [How to create an Agent instance.](#how-to-create-an-agent-instance)
 - [Examples](#examples)
     - [A simple example.](#a-simple-example-example)
     - [A comprehensive example.](#a-comprehensive-example-example)
+- [API](#api)
 - [Notes](#notes)
     - [Support for BroadcastChannels.](#support-for-broadcastchannels)
     - [Support for other communication channels.](#support-for-other-communication-channels)
@@ -29,7 +29,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 
 ### Agent
 
-An instance of an `Agent` facilitates communication across threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
+An instance of an `Agent` facilitates bi-directional communication between threads.  The `Agent` can be used in order to register a function in one thread and call it from another thread.  Calls may be made from the main thread to a worker thread, and conversely from a worker thread to the main thread.
 
 Late binding registrants will be called with previously awaited invocations; thus preventing a race condition.  This means that you may await a call to a function that has not yet been registered.  Once the function is registered in the *other* thread it will be called and its return value or `Error` will be marshalled back to the caller.
 
@@ -70,6 +70,14 @@ const greeting = await agent.call<string>('hello_world', 'happy');
 console.log(greeting); // Hello, happy world!
 ```
 
+## Examples
+
+### *A Simple Example* <sup><sup>\</Node.js\></sup></sup>
+Please see the [Simple Example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
+
+### *A Comprehensive Example* <sup><sup>\</TypeScript\></sup></sup>
+Please see the [Comprehensive Example](https://github.com/faranalytics/port_agent/tree/main/examples/comprehensive) for a working implementation.
+
 ## API
 
 ### The `Agent` Class
@@ -99,14 +107,6 @@ console.log(greeting); // Hello, happy world!
 - name `<string>` The name of the registered function.
 
 - Returns: `<void>`
-
-## Examples
-
-### *A Simple Example* <sup><sup>\</Node.js\></sup></sup>
-Please see the [Simple Example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
-
-### *A Comprehensive Example* <sup><sup>\</TypeScript\></sup></sup>
-Please see the [Comprehensive Example](https://github.com/faranalytics/port_agent/tree/main/examples/comprehensive) for a working implementation.
 
 ## Notes
 
