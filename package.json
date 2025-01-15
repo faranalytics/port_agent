@@ -21,10 +21,11 @@
   },
   "homepage": "https://github.com/faranalytics/port_agent#readme",
   "devDependencies": {
-    "@types/node": "^20.3.1",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "eslint": "^8.44.0",
+    "@eslint/js": "^9.6.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/node": "^20.11.28",
+    "eslint": "^8.57.0",
+    "typescript-eslint": "^7.15.0",
     "nodemon": "^2.0.22",
     "typescript": "^5.1.6"
   },
