@@ -81,7 +81,7 @@ Please see the [Comprehensive Example](https://github.com/faranalytics/port_agen
 
 ## API
 
-### The `Agent` Class
+### The Agent Class
 
 #### port_agent.Agent(port)
 - port `<threads.MessagePort>` or `<threads.Worker>` The message port.
