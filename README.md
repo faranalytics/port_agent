@@ -100,11 +100,11 @@ const greeting = await agent.call<string>('hello_world', 'happy');
 console.log(greeting); // Hello, happy world!
 ```
 
-## Examples
+## Usage
 
-### *A simple example.* <sup><sup>(example)</sup></sup>
+### The Procedure
 
-In this example you will:
+#### In this example you will:
 
 1. Instantiate a worker thread.
 2. Instantiate an `Agent` in the main thread.
@@ -119,6 +119,8 @@ In this example you will:
 11. Use the `Agent` to await a call to the function named `abend`.
 12. Catch the `Error` from (11) and log the stack trace to the console.
 13. Terminate the thread.
+
+### The Implementation
 
 `examples/simple/index.js`
 ```js
@@ -155,8 +157,10 @@ else { // This is a worker thread.
         agent.register('add', (a, b) => a + b); // (7)
     }
 }
+
 ```
-The example will log to the console something similar to this:
+
+#### The example will log to the console something similar to this:
 
 ```bash
 Hello, another world!
@@ -171,8 +175,13 @@ Error: This Error is expected, indeed.
 
 Please see the [Simple example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
 
-### *A comprehensive example.* <sup><sup>(example)</sup></sup>
-Please see the [Comprehensive example](https://github.com/faranalytics/port_agent/tree/main/examples/comprehensive) for a working implementation.
+## Examples
+
+### *A Simple Example* <sup><sup>\</Node.js\></sup></sup>
+Please see the [Simple Example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
+
+### *A Comprehensive Example* <sup><sup>\</TypeScript\></sup></sup>
+Please see the [Comprehensive Example](https://github.com/faranalytics/port_agent/tree/main/examples/comprehensive) for a working implementation.
 
 ## Notes
 
