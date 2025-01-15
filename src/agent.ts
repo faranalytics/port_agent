@@ -136,7 +136,7 @@ export class Agent {
     public async call<T>(name: string, ...args: Array<unknown>): Promise<T> {
 
         await this.portOnline;
-        // Each call must await here in order to ensure previous calls are executed prior to this one.
+        // Each call must await here, until the port comes online, in order to ensure previous calls are processed prior to this one.
 
         return new Promise<T>((r, j) => {
             const id = this.callID++;
