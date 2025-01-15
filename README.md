@@ -35,36 +35,6 @@ Late binding registrants will be called with previously awaited invocations; thu
 
 Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
-## API
-
-### The `Agent` Class
-
-#### port_agent.Agent(port)
-- port `<threads.MessagePort>` or `<threads.Worker>` The message port.
-
-#### agent.call\<T\>(name, ...args)
-- name `<string>` The name of the registered function.
-- ...args `<Array<unknown>>` Arguments to be passed to the registered function.
-
-- Returns: `<Promise<T>>`
-
-- Errors:
-
-  - If the registered function in the *other* thread throws an `Error`, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the `Error` as its failure reason.
-  - If a worker thread throws an unhandled exception while a call is awaited, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the unhandled exception as its failure reason.
-  - If a worker exits while a call is awaited, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the exit code as its failure reason.
-
-#### agent.register(name, fn)
-- name `<string>` The name of the registered function.
-- fn `<(...args: Array<any>) => any>` The registered function.
-
-- Returns: `<void>`
-
-#### agent.deregister(name)
-- name `<string>` The name of the registered function.
-
-- Returns: `<void>`
-
 ## Usage
 
 ### How to create an `Agent` instance.
@@ -100,80 +70,35 @@ const greeting = await agent.call<string>('hello_world', 'happy');
 console.log(greeting); // Hello, happy world!
 ```
 
-## Usage
+## API
 
-### The Procedure
+### The `Agent` Class
 
-#### In this example you will:
+#### port_agent.Agent(port)
+- port `<threads.MessagePort>` or `<threads.Worker>` The message port.
 
-1. Instantiate a worker thread.
-2. Instantiate an `Agent` in the main thread.
-3. Use the `Agent` to await a call to the `hello_world` function.
-4. Instantiate an `Agent` in the worker thread.
-5. Use the `Agent` in order to register a function named `abend` that will throw an `Error` when it is called.
-6. Use the `Agent` in order to register a function named `hello_word` to handle calls to the `hello_world` function.
-7. Use the `Agent` in order to register a function named `add` that will return the sum of two operands.
-8. Resolve (3) and log the `greeting` to the console.
-9. Use the `Agent` to await a call to the function named `add`.
-10. Resolve (9) and log the `result` to the console.
-11. Use the `Agent` to await a call to the function named `abend`.
-12. Catch the `Error` from (11) and log the stack trace to the console.
-13. Terminate the thread.
+#### agent.call\<T\>(name, ...args)
+- name `<string>` The name of the registered function.
+- ...args `<Array<unknown>>` Arguments to be passed to the registered function.
 
-### The Implementation
+- Returns: `<Promise<T>>`
 
-`examples/simple/index.js`
-```js
-import { Worker, isMainThread, parentPort } from 'node:worker_threads';
-import { fileURLToPath } from 'node:url';
-import { Agent } from 'port_agent';
+- Errors:
 
-if (isMainThread) { // This is the main thread.
-    void (async () => {
-        const worker = new Worker(fileURLToPath(import.meta.url)); // (1)
-        const agent = new Agent(worker); // (2)
-        try {
-            const greeting = await agent.call('hello_world', 'another'); // (3)
-            console.log(greeting); // (8)
+  - If the registered function in the *other* thread throws an `Error`, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the `Error` as its failure reason.
+  - If a worker thread throws an unhandled exception while a call is awaited, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the unhandled exception as its failure reason.
+  - If a worker exits while a call is awaited, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the exit code as its failure reason.
 
-            const result = await agent.call('add', 1, 1); // (9)
-            console.log(result); // (10)
+#### agent.register(name, fn)
+- name `<string>` The name of the registered function.
+- fn `<(...args: Array<any>) => any>` The registered function.
 
-            await agent.call('abend', "This Error is expected, indeed.") // (11)
-        }
-        catch (err) {
-            console.error(err); // (12)
-        }
-        finally {
-            worker.terminate(); // (13)
-        }
-    })();
-}
-else { // This is a worker thread.
-    if (parentPort) {
-        const agent = new Agent(parentPort); // (4)
-        agent.register('abend', (message) => { throw new Error(message); }); // (5)
-        agent.register('hello_world', (value) => `Hello, ${value} world!`); // (6)
-        agent.register('add', (a, b) => a + b); // (7)
-    }
-}
+- Returns: `<void>`
 
-```
+#### agent.deregister(name)
+- name `<string>` The name of the registered function.
 
-#### The example will log to the console something similar to this:
-
-```bash
-Hello, another world!
-2
-Error: This Error is expected, indeed.
-    at file:///port_agent/examples/simple/index.js:29:54
-    at Agent.tryPost (/port_agent/examples/simple/node_modules/port_agent/dist/index.js:145:33)
-    at MessagePort.<anonymous> (/port_agent/examples/simple/node_modules/port_agent/dist/index.js:114:36)
-    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:762:20)
-    at exports.emitMessage (node:internal/per_context/messageport:23:28)
-```
-
-Please see the [Simple example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
+- Returns: `<void>`
 
 ## Examples
 
