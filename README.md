@@ -37,7 +37,7 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ## API
 
-### The `Agent` class.
+### The `Agent` Class
 
 #### port_agent.Agent(port)
 - port `<threads.MessagePort>` or `<threads.Worker>` The message port.
