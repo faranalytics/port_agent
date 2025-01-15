@@ -6,8 +6,10 @@
   "scripts": {
     "build": "tsc --build .",
     "clean": "rm -rf ./dist/*",
+    "start": "node .",
+    "monitor": "nodemon .",
     "clean:build": "npm run clean && npm run build",
-    "monitor": "nodemon ."
+    "clean:build:start": "npm run clean:build && npm start"
   },
   "author": "FAR",
   "license": "MIT",
