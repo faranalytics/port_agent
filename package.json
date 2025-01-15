@@ -7,7 +7,7 @@
     "clean": "rm -rf ./dist/*",
     "build": "tsc --build .",
     "clean:build": "npm run clean && npm run build",
-    "test": "npm run clean:build && cd tests/test && npm run build && node .",
+    "test": "npm run clean:build && npm install --prefix ./tests/test && npm run clean:build:start --prefix ./tests/test",
     "watch": "tsc --watch"
   },
   "repository": {
