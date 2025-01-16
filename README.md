@@ -38,14 +38,14 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ## Usage
 
-### How to create an `Agent` instance.
+### How to create an Agent instance.
 
 #### Import the Agent class from Port Agent.
 
 ```ts
 import { Agent } from 'port_agent';
 ```
-#### You can create a new `Agent` by passing a `parentPort` or a `Worker` instance to the `Agent` constructor:
+#### You can create a new Agent by passing a MessagePort or Worker instance to the Agent constructor:
 
 In the main thread,
 ```ts
@@ -56,15 +56,15 @@ or, in a worker thread,
 ```ts
 const agent = new Agent(worker_threads.parentPort);
 ```
-### How to use an `Agent` instance.
+### How to use an Agent instance.
 
-#### You can register a function in the main thread or in a worker thread using the `Agent.register` method:
+#### You can register a function in the main thread or in a worker thread using the Agent.register method:
 
 ```ts
 agent.register('hello_world', (value: string): string => `Hello, ${value} world!`);
 ```
 
-#### You can call a function registered in another thread (i.e., the main thread or a worker thread) using the `Agent.call` method:
+#### You can call a function registered in another thread (i.e., the main thread or a worker thread) using the Agent.call method:
 
 ```ts
 const greeting = await agent.call<string>('hello_world', 'happy');
