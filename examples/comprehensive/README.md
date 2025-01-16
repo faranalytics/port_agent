@@ -1,6 +1,6 @@
 # A Comprehensive Example
 
-## Example
+## Introduction
 
 This example provides a comprehensive demonstration of Port Agent's functionality.
 

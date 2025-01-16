@@ -1,8 +1,8 @@
 # A Simple Example
 
-This example provides a simple demonstration of Port Agent's functionality.
+## Introduction
 
-## Example
+This example provides a simple demonstration of Port Agent's functionality.
 
 ### Procedure
 
