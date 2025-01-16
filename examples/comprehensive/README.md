@@ -1,8 +1,8 @@
 # A Comprehensive Example
 
-This example provides a comprehensive demonstration of Port Agent's functionality.
-
 ## Example
+
+This example provides a comprehensive demonstration of Port Agent's functionality.
 
 ### Procedure
 
