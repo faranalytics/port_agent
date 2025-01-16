@@ -129,10 +129,10 @@ Excerpted from [Semantic Versioning 2.0.0](https://semver.org/):
 
 ## Notes
 
-### Support for BroadcastChannels.
+### Support for BroadcastChannels
 
 Port Agent supports one to one communication over a `MessagePort`.  `BroadcastChannel`s are not presently supported.
 
-### Support for other communication channels.
+### Support for other Communication Channels
 
 Port Agent is strictly focused on efficient communication over `MessagePort`s.  Port Agent will not support communication over other communication channels e.g., `Socket`s, IPC, etc.
