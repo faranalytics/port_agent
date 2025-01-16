@@ -22,8 +22,8 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
     - [How to Create an Agent Instance](#how-to-create-an-agent-instance)
     - [How to Use an Agent Instance](#how-to-use-an-agent-instance)
 - [Examples](#examples)
-    - [A Simple Example](#a-simple-example-nodejs)
-    - [A Comprehensive Example](#a-comprehensive-example-typescript)
+    - [_A Simple Example_](#a-simple-example-nodejs)
+    - [_A Comprehensive Example_](#a-comprehensive-example-typescript)
 - [API](#api)
 - [Versioning](#versioning)
 - [Notes](#notes)
@@ -82,10 +82,10 @@ console.log(greeting); // Hello, happy world!
 
 ## Examples
 
-### *A Simple Example* <sup><sup>\</Node.js\></sup></sup>
+### _A Simple Example_ <sup><sup>\</Node.js\></sup></sup>
 Please see the [Simple Example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
 
-### *A Comprehensive Example* <sup><sup>\</TypeScript\></sup></sup>
+### _A Comprehensive Example_ <sup><sup>\</TypeScript\></sup></sup>
 Please see the [Comprehensive Example](https://github.com/faranalytics/port_agent/tree/main/examples/comprehensive) for a working implementation.
 
 ## API
