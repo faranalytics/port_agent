@@ -38,7 +38,7 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ## Usage
 
-### How to create an Agent instance.
+### How to Create an Agent Instance
 
 #### Import the Agent class from Port Agent.
 
@@ -61,7 +61,7 @@ or, in a worker thread,
 const agent = new Agent(worker_threads.parentPort);
 ```
 
-### How to use an Agent instance.
+### How to Use an Agent Instance
 
 #### You can register a function in the main thread or in a worker thread using the Agent.register method:
 
