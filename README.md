@@ -83,31 +83,30 @@ Please see the [Comprehensive Example](https://github.com/faranalytics/port_agen
 
 ### The Agent Class
 
-#### port_agent.Agent(port)
+**new port_agent.Agent(port)**
 - port `<threads.MessagePort>` or `<threads.Worker>` The message port.
 
-#### agent.call\<T\>(name, ...args)
+_public_ **agent.call\<T\>(name, ...args)**
 - name `<string>` The name of the registered function.
 - ...args `<Array<unknown>>` Arguments to be passed to the registered function.
 
-- Returns: `<Promise<T>>`
+Returns: `<Promise<T>>`
 
-- Errors:
-
+Errors:
   - If the registered function in the *other* thread throws an `Error`, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the `Error` as its failure reason.
   - If a worker thread throws an unhandled exception while a call is awaited, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the unhandled exception as its failure reason.
   - If a worker exits while a call is awaited, the `Error` will be marshalled back from the *other* thread to *this* thread and the `Promise` will reject with the exit code as its failure reason.
 
-#### agent.register(name, fn)
+_public_ **agent.register(name, fn)**
 - name `<string>` The name of the registered function.
 - fn `<(...args: Array<any>) => any>` The registered function.
 
-- Returns: `<void>`
+Returns: `<void>`
 
-#### agent.deregister(name)
+_public_ **agent.deregister(name)**
 - name `<string>` The name of the registered function.
 
-- Returns: `<void>`
+Returns: `<void>`
 
 ## Versioning
 
