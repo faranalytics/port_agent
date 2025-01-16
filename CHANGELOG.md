@@ -1,17 +1,22 @@
 # Changelog
 
+## [1.4.3] - 2025-01-15
+### Changed
+- Improve documentation.
+- Improve examples.
+
 ## [1.4.2] - 2025-01-15
 ### Changed
-- Improved documentation.
+- Improve documentation.
 
 ## [1.4.1] - 2025-01-14
 ### Changed
-- Improved documentation.
+- Improve documentation.
 - Improve tests.
 
 ## [1.4.0] - 2023-12-30
 ### Changed
-- Improved documentation.
+- Improve documentation.
 - Refactor Agent and Message classes.
 ### Fixed
 - Fixed Error message representation in order for stack traces to be observed.
@@ -26,26 +31,26 @@
 
 ## [1.2.13] - 2023-10-01
 ### Changed
-- Improved simple example.
-- Improved documentation.
+- Improve simple example.
+- Improve documentation.
 
 ## [1.2.12] - 2023-09-30
 ### Changed
-- Changed access modifier on _online property.
-- Changed default value of _online property to resolved Promise.
-- Improved documentation.
-- Improved examples.
+- Change access modifier on _online property.
+- Change default value of _online property to resolved Promise.
+- Improve documentation.
+- Improve examples.
 
 ## [1.2.11] - 2023-09-30
 ### Added
 - Added simple example.
 ### Fixed
-- Deleted rejected calls. 
+- Delete rejected calls. 
 - Add instructions to throw when awaiting an exited thread.
-- Fixed .gitignore directives.
+- Fix .gitignore directives.
 ### Changed
-- Improved documentation.
-- Exported auxiliary classes and interfaces.
+- Improve documentation.
+- Exporte auxiliary classes and interfaces.
 
 ## [1.2.10] - 2023-09-30
 ### Deprecated
@@ -53,66 +58,66 @@
 
 ## [1.2.9] - 2023-09-28
 ### Removed
-- Removed dist.
+- Remove dist.
 ### Changed
-- Improved documentation.
+- Improve documentation.
 
 ## [1.2.8] - 2023-09-28
 ### Fixed
-- Fixed access specifiers.
+- Fix access specifiers.
 ### Changed
-- Improved documentation.
+- Improve documentation.
 
 ## [1.2.7] - 2023-09-28
 ### Changed
-- Improved documentation.
+- Improve documentation.
 
 ## [1.2.6] - 2023-09-26
 ### Changed
-- Improved documentation.
+- Improve documentation.
 
 ## [1.2.5] - 2023-09-26
 ### Changed
-- Improved documentation.
+- Improve documentation.
 ### Fixed
 - Fixed unnecessary conditional logic.
 
 ## [1.2.4] - 2023-09-25
 ### Fixed
-- Added instructions to throw on unhandled exceptions or on an exit of the Worker thread.
+- Add instructions to throw on unhandled exceptions or on an exit of the Worker thread.
 
 ## [1.2.3] - 2023-09-24
 ### Added
-- Added keywords.
+- Add keywords.
 
 ## [1.2.2] - 2023-09-23
 ### Changed
-- Improved documentation.
-- Improved example.
+- Improve documentation.
+- Improve example.
 
 ## [1.2.1] - 2023-09-21
 ### Changed
-- Improved documentation.
+- Improve documentation.
 
 ## [1.2.0] - 2023-09-19
 ### Fixed
-- Improved typings.
-- Reconstituted Errors.
+- Improve typings.
+- Reconstitute Errors.
 
 ## [1.1.3] - 2023-08-03
 ### Fixed
-- Fixed error in simple example output.
+- Fix error in simple example output.
 
 ## [1.1.2] - 2023-08-03
 ### Changed
-- Improved simple example.
+- Improve simple example.
 ### Removed
-- Removed subclassing example from the README.md.
+- Remove subclassing example from the README.md.
 
 ## [1.1.1] - 2023-08-02
 ### Changed
-- Added type variable to call method.
-- Changed test to TypeScript.
+- Add type variable to call method.
+- Change test to TypeScript.
 
 ## [1.1.0] - 2023-08-02
 ### Fixed
@@ -122,7 +127,7 @@
 ### Added
 - This project adheres to Semantic Versioning.
 ### Changed
-- Improved examples.
+- Improve examples.
 ### Deprecated
 ### Fixed
 ### Removed
