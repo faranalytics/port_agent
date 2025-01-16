@@ -45,17 +45,22 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 ```ts
 import { Agent } from 'port_agent';
 ```
+
 #### You can create a new Agent by passing a MessagePort or Worker instance to the Agent constructor:
 
 In the main thread,
+
 ```ts
 const worker = new Worker(fileURLToPath(import.meta.url));
 const agent = new Agent(worker);
 ```
+
 or, in a worker thread,
+
 ```ts
 const agent = new Agent(worker_threads.parentPort);
 ```
+
 ### How to use an Agent instance.
 
 #### You can register a function in the main thread or in a worker thread using the Agent.register method:
@@ -125,7 +130,9 @@ Excerpted from [Semantic Versioning 2.0.0](https://semver.org/):
 ## Notes
 
 ### Support for BroadcastChannels.
+
 Port Agent supports one to one communication over a `MessagePort`.  `BroadcastChannel`s are not presently supported.
 
 ### Support for other communication channels.
+
 Port Agent is strictly focused on efficient communication over `MessagePort`s.  Port Agent will not support communication over other communication channels e.g., `Socket`s, IPC, etc.
