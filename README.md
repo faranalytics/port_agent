@@ -9,7 +9,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 ### Features
 - Port Agent will marshal the return value or `Error` from the *other* thread back to the caller.
 - The *other* thread may be the main thread or a worker thread.
-- Registered functions (i.e., `Agent.register`) persist until deregistered (i.e., `Agent.deregister`) .
+- Registered functions (i.e., `agent.register`) persist until deregistered (i.e., `agent.deregister`) .
 - Late binding registrants will be called with previously awaited invocations. 
 
 ## Table of Contents
