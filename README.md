@@ -8,6 +8,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 
 ### Features
 
+- Bi-directional inter-thread function calls.
 - Port Agent will marshal the return value or `Error` from the *other* thread back to the caller.
 - The *other* thread may be the main thread or a worker thread.
 - Registered functions (i.e., `agent.register`) persist until deregistered (i.e., `agent.deregister`) .
