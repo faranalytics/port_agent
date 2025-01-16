@@ -7,24 +7,27 @@ A RPC-like facility for making inter-thread function calls.
 Port Agent provides a simple and intuitive interface that makes inter-thread function calls *easy*.  Please see the [Usage](#usage) or [Examples](#examples) for instructions on how to use Port Agent in your application.
 
 ### Features
+
 - Port Agent will marshal the return value or `Error` from the *other* thread back to the caller.
 - The *other* thread may be the main thread or a worker thread.
 - Registered functions (i.e., `agent.register`) persist until deregistered (i.e., `agent.deregister`) .
 - Late binding registrants will be called with previously awaited invocations. 
 
 ## Table of Contents
+
 - [Concepts](#concepts)
     - [Agent](#agent)
 - [Usage](#usage)
-    - [How to create an Agent instance.](#how-to-create-an-agent-instance)
+    - [How to Create an Agent Instance](#how-to-create-an-agent-instance)
+    - [How to Use an Agent Instance](#how-to-use-an-agent-instance)
 - [Examples](#examples)
-    - [A simple example.](#a-simple-example-nodejs)
-    - [A comprehensive example.](#a-comprehensive-example-typescript)
+    - [A Simple Example](#a-simple-example-nodejs)
+    - [A Comprehensive Example](#a-comprehensive-example-typescript)
 - [API](#api)
 - [Versioning](#versioning)
 - [Notes](#notes)
-    - [Support for BroadcastChannels.](#support-for-broadcastchannels)
-    - [Support for other communication channels.](#support-for-other-communication-channels)
+    - [Support for BroadcastChannels](#support-for-broadcastchannels)
+    - [Support for Other Communication Channels](#support-for-other-communication-channels)
 
 ## Concepts
 
