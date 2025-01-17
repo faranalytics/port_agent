@@ -17,18 +17,11 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 ## Table of Contents
 
 - [Concepts](#concepts)
-  - [Agent](#agent)
 - [Usage](#usage)
-  - [How to Create an Agent Instance](#how-to-create-an-agent-instance)
-  - [How to Use an Agent Instance](#how-to-use-an-agent-instance)
 - [Examples](#examples)
-  - [_A Simple Example_](#a-simple-example-nodejs)
-  - [_A Comprehensive Example_](#a-comprehensive-example-typescript)
 - [API](#api)
 - [Versioning](#versioning)
 - [Notes](#notes)
-  - [Support for BroadcastChannels](#support-for-broadcastchannels)
-  - [Support for Other Communication Channels](#support-for-other-communication-channels)
 
 ## Concepts
 
