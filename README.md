@@ -22,6 +22,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 - [API](#api)
 - [Versioning](#versioning)
 - [Notes](#notes)
+- [Support](#support)
 
 ## Concepts
 
@@ -145,3 +146,9 @@ Port Agent supports one to one communication over a `MessagePort`. `BroadcastCha
 ### Support for other Communication Channels
 
 Port Agent is strictly focused on efficient communication over `MessagePort`s. Port Agent will not support communication over other communication channels e.g., `Socket`s, IPC, etc.
+
+## Support
+
+If you have a feature request or run into any issues, feel free to submit an [issue](https://github.com/faranalytics/port_agent/issues) or start a [discussion](https://github.com/faranalytics/port_agent/discussions). You’re also welcome to reach out directly to one of the authors at any time.
+
+- [Adam Patterson](https://github.com/adamjpatterson)
