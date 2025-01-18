@@ -14,7 +14,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 - Registered functions (i.e., `agent.register`) persist until deregistered (i.e., `agent.deregister`) .
 - Late binding registrants will be called with previously awaited invocations.
 
-## Table of Contents
+## Table of contents
 
 - [Concepts](#concepts)
 - [Usage](#usage)
@@ -36,17 +36,15 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ## Usage
 
-### Instructions
+### How to create an Agent instance
 
-#### How to Create an Agent Instance
-
-Import the Agent class from Port Agent.
+#### Import the Agent class from Port Agent.
 
 ```ts
 import { Agent } from "port_agent";
 ```
 
-You can create a new Agent by passing a MessagePort or Worker instance to the Agent constructor:
+#### You can create a new Agent by passing a MessagePort or Worker instance to the Agent constructor.
 
 In the main thread,
 
@@ -61,9 +59,9 @@ or, in a worker thread,
 const agent = new Agent(worker_threads.parentPort);
 ```
 
-#### How to Use an Agent Instance
+### How to use an Agent instance
 
-You can register a function in the main thread or in a worker thread using the Agent.register method:
+#### You can register a function in the main thread or in a worker thread using the `agent.register` method.
 
 ```ts
 agent.register(
@@ -72,7 +70,7 @@ agent.register(
 );
 ```
 
-You can call a function registered in another thread (i.e., the main thread or a worker thread) using the Agent.call method:
+#### You can call a function registered in another thread (i.e., the main thread or a worker thread) using the `agent.call` method:
 
 ```ts
 const greeting = await agent.call<string>("hello_world", "happy");
@@ -81,17 +79,17 @@ console.log(greeting); // Hello, happy world!
 
 ## Examples
 
-### _A Simple Example_ <sup><sup>\</Node.js\></sup></sup>
+### _A simple example_ <sup><sup>\</Node.js\></sup></sup>
 
-Please see the [Simple Example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
+Please see the [simple example](https://github.com/faranalytics/port_agent/tree/main/examples/simple) for a working implementation.
 
-### _A Comprehensive Example_ <sup><sup>\</TypeScript\></sup></sup>
+### _A comprehensive example_ <sup><sup>\</TypeScript\></sup></sup>
 
-Please see the [Comprehensive Example](https://github.com/faranalytics/port_agent/tree/main/examples/comprehensive) for a working implementation.
+Please see the [comprehensive example](https://github.com/faranalytics/port_agent/tree/main/examples/comprehensive) for a working implementation.
 
 ## API
 
-### The Agent Class
+### The Agent class
 
 #### new port_agent.Agent(port)
 
@@ -139,16 +137,16 @@ Excerpted from [Semantic Versioning 2.0.0](https://semver.org/):
 
 ## Notes
 
-### Support for BroadcastChannels
+### Support for broadcastChannels
 
 Port Agent supports one to one communication over a `MessagePort`. `BroadcastChannel`s are not presently supported.
 
-### Support for other Communication Channels
+### Support for other communication channels
 
 Port Agent is strictly focused on efficient communication over `MessagePort`s. Port Agent will not support communication over other communication channels e.g., `Socket`s, IPC, etc.
 
 ## Support
 
-If you have a feature request or run into any issues, feel free to submit an [issue](https://github.com/faranalytics/port_agent/issues) or start a [discussion](https://github.com/faranalytics/port_agent/discussions). You’re also welcome to reach out directly to one of the authors at any time.
+If you have a feature request or run into any issues, feel free to submit an [issue](https://github.com/faranalytics/port_agent/issues) or start a [discussion](https://github.com/faranalytics/port_agent/discussions). You’re also welcome to reach out directly to one of the authors.
 
 - [Adam Patterson](https://github.com/adamjpatterson)
