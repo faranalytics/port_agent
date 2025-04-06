@@ -1,9 +1,12 @@
 # Changelog
 
-## [1.4.5] - 2025-01-18
+## [1.4.6] - 2025-04-05
 ### Changed
 - Improve documentation.
 
+## [1.4.5] - 2025-01-18
+### Changed
+- Improve documentation.
 
 ## [1.4.4] - 2025-01-17
 ### Changed
