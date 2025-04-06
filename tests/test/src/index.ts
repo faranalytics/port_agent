@@ -23,7 +23,7 @@ if (isMainThread) { // This is the main thread.
             }
             catch (err) {
                 if (err instanceof Error) {
-                    console.error(`Now, back in the main thread, we will handle the`, err); // (13)
+                    console.error('Now, back in the main thread, we will handle the', err); // (13)
                 }
             }
             finally {
