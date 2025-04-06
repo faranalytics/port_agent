@@ -1,6 +1,6 @@
 {
   "name": "port_agent",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "A RPC-like facility for making inter-thread function calls.",
   "main": "./dist/index.js",
   "scripts": {
