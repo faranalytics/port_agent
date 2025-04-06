@@ -16,6 +16,7 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 
 ## Table of contents
 
+- [Installation](#installation)
 - [Concepts](#concepts)
 - [Usage](#usage)
 - [Examples](#examples)
@@ -23,6 +24,12 @@ Port Agent provides a simple and intuitive interface that makes inter-thread fun
 - [Versioning](#versioning)
 - [Notes](#notes)
 - [Support](#support)
+
+## Installation
+
+```bash
+npm install port_agent --save
+```
 
 ## Concepts
 
@@ -38,9 +45,11 @@ Please see the [Examples](#examples) for variations on the `Agent`'s usage.
 
 ### How to create an Agent instance
 
-#### Import the Agent class from Port Agent.
+#### Import the Agent class and relevant dependencies.
 
 ```ts
+import { Worker, parentPort } from 'node:worker_threads';
+import { fileURLToPath } from 'node:url';
 import { Agent } from "port_agent";
 ```
 
@@ -56,7 +65,7 @@ const agent = new Agent(worker);
 or, in a worker thread,
 
 ```ts
-const agent = new Agent(worker_threads.parentPort);
+const agent = new Agent(parentPort);
 ```
 
 ### How to use an Agent instance
